@@ -1,6 +1,7 @@
 {
   "name": "linear-insights",
   "private": true,
+  "packageManager": "pnpm@9.15.0",
   "workspaces": ["apps/*", "packages/*"],
   "scripts": {
     "cli": "bun --env-file=.env.local --filter @linear-insights/cli start",

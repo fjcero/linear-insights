@@ -2,9 +2,11 @@ import { useCallback, useEffect, useState } from "react";
 import type { InsightsReportData } from "@linear-insights/report-types";
 import { Dashboard } from "./Dashboard";
 import { Loader } from "./components/Loader";
+import { LoginPage } from "./components/LoginPage";
 
 export type DateRange = { from: string; to: string } | null;
 export type TeamFilter = "all" | string;
+type AuthState = "loading" | "authenticated" | "unauthenticated";
 
 function parseReport(json: string): InsightsReportData | null {
   try {
@@ -28,20 +30,52 @@ function reportUrl(dateRange: DateRange, team: TeamFilter): string {
 }
 
 export default function App() {
+  const [authState, setAuthState] = useState<AuthState>("loading");
+  const [user, setUser] = useState<{ name: string; email: string } | null>(null);
+
   const [report, setReport] = useState<InsightsReportData | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [dateRange, setDateRange] = useState<DateRange>(null);
   const [selectedTeam, setSelectedTeam] = useState<TeamFilter>("all");
   const [reportSource, setReportSource] = useState<"api" | "file" | null>(null);
 
+  // Check auth on mount
+  useEffect(() => {
+    fetch("/auth/me", { credentials: "include" })
+      .then(async (res) => {
+        if (res.ok) {
+          const data = (await res.json()) as { name: string; email: string };
+          setUser(data);
+          setAuthState("authenticated");
+        } else {
+          setAuthState("unauthenticated");
+        }
+      })
+      .catch(() => setAuthState("unauthenticated"));
+  }, []);
+
+  const handleLogout = useCallback(async () => {
+    await fetch("/auth/logout", { method: "POST", credentials: "include" });
+    setAuthState("unauthenticated");
+    setUser(null);
+    setReport(null);
+    setReportSource(null);
+    setDateRange(null);
+    setSelectedTeam("all");
+  }, []);
+
   const loadFromApi = useCallback(async (range: DateRange, team: TeamFilter) => {
     const url = reportUrl(range, team);
-    const res = await fetch(url);
+    const res = await fetch(url, { credentials: "include" });
     if (!res.ok) {
+      if (res.status === 401) {
+        setAuthState("unauthenticated");
+        throw new Error("Session expired. Please sign in again.");
+      }
       if (res.status === 503) {
         const body = await res.json().catch(() => ({}));
-        throw new Error(body?.error ?? "Cache empty. Ensure LINEAR_API_KEY is set and restart.");
+        throw new Error(body?.error ?? "Cache empty — syncing, please wait.");
       }
       throw new Error(`Report failed: ${res.status}`);
     }
@@ -50,11 +84,17 @@ export default function App() {
     throw new Error("Invalid report from server");
   }, []);
 
+  // Load report once authenticated
   useEffect(() => {
+    if (authState !== "authenticated") return;
+
     const RETRY_DELAY_MS = 1500;
-    const MAX_RETRIES = 40; // sync can take >1 min for large workspaces
+    const MAX_RETRIES = 40;
 
     type LoadResult = { data: InsightsReportData; source: "api" | "file" } | null;
+
+    setLoading(true);
+
     async function loadReport(): Promise<LoadResult> {
       let lastApiError: Error | null = null;
       for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
@@ -62,10 +102,14 @@ export default function App() {
           const data = await loadFromApi(null, "all");
           if (data) return { data, source: "api" };
         } catch (err) {
+          if (err instanceof Error && err.message.includes("Session expired")) {
+            return null;
+          }
           lastApiError = err instanceof Error ? err : new Error("Failed to load report API");
           if (attempt < MAX_RETRIES) await new Promise((r) => setTimeout(r, RETRY_DELAY_MS));
         }
       }
+      // Fallback: static report.json
       try {
         const res = await fetch("/report.json");
         if (res.ok) {
@@ -75,11 +119,8 @@ export default function App() {
       } catch {
         // ignore
       }
-      if (lastApiError) {
-        setError(lastApiError.message);
-      } else {
-        setError("Report not available from API or /report.json");
-      }
+      if (lastApiError) setError(lastApiError.message);
+      else setError("Report not available from API or /report.json");
       return null;
     }
 
@@ -92,7 +133,7 @@ export default function App() {
         }
       })
       .finally(() => setLoading(false));
-  }, [loadFromApi]);
+  }, [authState, loadFromApi]);
 
   const onDateRangeChange = useCallback(
     (range: DateRange) => {
@@ -137,6 +178,23 @@ export default function App() {
     reader.readAsText(file);
   }, []);
 
+  // Auth loading splash
+  if (authState === "loading") {
+    return (
+      <Loader
+        onFileSelect={() => {}}
+        error={null}
+        loading={true}
+      />
+    );
+  }
+
+  // Not logged in
+  if (authState === "unauthenticated") {
+    return <LoginPage />;
+  }
+
+  // Logged in, report loaded
   if (report) {
     return (
       <Dashboard
@@ -152,10 +210,13 @@ export default function App() {
         selectedTeam={selectedTeam}
         onTeamChange={onTeamChange}
         loading={loading}
+        user={user}
+        onLogout={handleLogout}
       />
     );
   }
 
+  // Logged in, loading report
   return (
     <Loader onFileSelect={loadFile} error={error} loading={loading} />
   );

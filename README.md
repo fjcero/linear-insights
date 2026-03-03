@@ -38,11 +38,66 @@ bun run sync -- --force   # force refresh cache, then exit
 
 ### Optional env
 
-- `LINEAR_API_KEY` — required for sync and insights (and for report API scope). Set in `.env.local`.
+- `LINEAR_API_KEY` — required for CLI sync and insights (and as fallback for the app server when not using OAuth). Set in `.env.local`.
 - `LINEAR_TEAM_IDS` — comma-separated team IDs to scope active projects (optional).
-- **Cache (SQLite):** Report data (teams, projects, issues) is cached in a SQLite DB. Default path: `~/.cache/linear-insights/report.db` (override with `LINEAR_INSIGHTS_CACHE_DB`). Set `LINEAR_INSIGHTS_CACHE=0` to disable. TTLs: teams 1y, projects 1d, issues 1d.
+- **Cache:** Report data (teams, projects, issues) is cached locally or in Vercel KV. **Local:** SQLite at `~/.cache/linear-insights/report.db` (override with `LINEAR_INSIGHTS_CACHE_DB`). **Vercel:** Uses Vercel KV (Redis) when deployed (`VERCEL=1` + KV env vars). Override with `LINEAR_INSIGHTS_CACHE_BACKEND=sqlite` or `vercel-kv`. Set `LINEAR_INSIGHTS_CACHE=0` to disable. TTLs: teams 1y, projects 1d, issues 1d.
 - `LINEAR_INSIGHTS_FORCE_REFRESH=1` — force cache refresh (same as `--force`).
 - **Velocity chart:** An HTML bar chart (projects created/closed by month) is written to `linear-insights-velocity.html` in the current directory. Override with `LINEAR_INSIGHTS_CHART_OUTPUT=/path/to/file.html`. Set `LINEAR_INSIGHTS_CHART=nodeplotlib` to also open an interactive Plotly chart in the browser (via nodeplotlib).
+
+### OAuth (web app — hosted / multi-user)
+
+The web app supports **Linear OAuth 2.0** so users sign in with their own Linear accounts instead of sharing a single API key.
+
+#### 1. Create a Linear OAuth app
+
+Go to **Linear → Settings → API → OAuth Applications → New application**.
+
+- **Redirect URI:** `http://localhost:5173/auth/callback` for local dev; set to your hosted domain for production.
+- **Scopes:** `read`
+
+#### 2. Set additional env vars in `.env.local`
+
+```bash
+LINEAR_CLIENT_ID=your_oauth_client_id
+LINEAR_CLIENT_SECRET=your_oauth_client_secret
+LINEAR_REDIRECT_URI=http://localhost:5173/auth/callback
+SESSION_SECRET=at-least-32-random-characters-here
+```
+
+#### 3. Start the app
+
+```bash
+bun run app:dev
+```
+
+Open [http://localhost:5173](http://localhost:5173) — you will be redirected to Linear to sign in.
+
+#### Auth endpoints (served by the report API on port 3001)
+
+| Endpoint | Method | Description |
+|---|---|---|
+| `/auth/login` | `GET` | Redirect to Linear OAuth consent |
+| `/auth/callback` | `GET` | Exchange code, issue signed session cookie |
+| `/auth/logout` | `POST` | Clear session cookie |
+| `/auth/me` | `GET` | Return `{ userId, name, email }` or 401 |
+
+#### Session design
+
+- Sessions are **stateless signed cookies** (`linear_session`): the Linear access token is stored in an HMAC-SHA256 signed cookie payload. No server-side session store required.
+- Cache is **scoped per user** via the Linear user ID — each user's data is isolated in the SQLite cache.
+- **Fallback**: if `LINEAR_API_KEY` is set but no OAuth credentials are configured, the app server still accepts API key auth for local development without a login flow.
+
+#### Future: KV cache migration
+
+The cache layer uses a `CacheAdapter` interface (`packages/cache/src/adapter.ts`). The current `SQLiteCacheAdapter` is suitable for a single process. To run multiple instances (e.g. on Vercel), swap it for a `RedisCacheAdapter` or `VercelKVCacheAdapter` that implements the same three-method interface:
+
+```ts
+interface CacheAdapter {
+  get(scope, kind, key): Promise<CacheEntry | null>
+  set(scope, kind, key, data, expiresAt): Promise<void>
+  clear(scope): Promise<void>
+}
+```
 
 ### Repo layout (layers)
 

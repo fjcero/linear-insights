@@ -17,6 +17,8 @@ interface DashboardProps {
   selectedTeam: TeamFilter;
   onTeamChange: (teamId: TeamFilter) => void;
   loading?: boolean;
+  user?: { name: string; email: string } | null;
+  onLogout?: () => void;
 }
 
 export function Dashboard({
@@ -27,6 +29,8 @@ export function Dashboard({
   selectedTeam,
   onTeamChange,
   loading,
+  user,
+  onLogout,
 }: DashboardProps) {
   const {
     teams,
@@ -136,6 +140,40 @@ export function Dashboard({
           >
             Load another report
           </button>
+          {user && onLogout && (
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <span
+                style={{
+                  color: "#9fb0cd",
+                  fontSize: "0.6875rem",
+                  maxWidth: 160,
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+                title={user.email}
+              >
+                {user.name}
+              </span>
+              <button
+                type="button"
+                onClick={onLogout}
+                style={{
+                  background: "transparent",
+                  border: "1px solid #1a2540",
+                  color: "#3d4f70",
+                  padding: "6px 12px",
+                  borderRadius: 6,
+                  cursor: "pointer",
+                  fontFamily: "'IBM Plex Mono', monospace",
+                  fontSize: "0.5625rem",
+                  letterSpacing: "0.08em",
+                }}
+              >
+                Sign out
+              </button>
+            </div>
+          )}
         </div>
       </header>
 

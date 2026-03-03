@@ -1,4 +1,4 @@
-import { getLinearClient } from "./client.js";
+import type { LinearClient } from "@linear/sdk";
 import type { Project } from "@linear/sdk";
 import type { ProjectSummary } from "./types.js";
 import { listTeams } from "./teams.js";
@@ -37,7 +37,7 @@ function mapProject(p: Project, teamId?: string): ProjectSummary {
 
 const IGNORED_PROJECT_STATES = new Set(["archived", "deleted", "canceled", "cancelled"]);
 
-/** True when project should be ignored in reporting/metrics. */
+/** True when project should be included in reporting/metrics. */
 export function isActiveForReporting(project: ProjectSummary): boolean {
   if (project.deletedAt) return false;
   if (project.archivedAt) return false;
@@ -49,8 +49,7 @@ export function isActiveForReporting(project: ProjectSummary): boolean {
 }
 
 /** Fetch all projects for a single team (with pagination). */
-async function fetchProjectsForTeam(teamId: string): Promise<ProjectSummary[]> {
-  const client = getLinearClient();
+async function fetchProjectsForTeam(client: LinearClient, teamId: string): Promise<ProjectSummary[]> {
   const team = await client.team(teamId);
   const connection = await team.projects({ first: 50, includeArchived: false });
   const nodes = connection?.nodes ?? [];
@@ -81,13 +80,13 @@ function resolveTeamIds(teams: { id: string; key: string }[], optionTeamIds?: st
  * options.teamIds can be team UUIDs or keys (e.g. "OTH", "MOR"). If empty, all teams are used.
  * Optionally filter by state in memory.
  */
-export async function listProjects(options: ListProjectsOptions = {}): Promise<ProjectSummary[]> {
-  const teams = await listTeams();
+export async function listProjects(client: LinearClient, options: ListProjectsOptions = {}): Promise<ProjectSummary[]> {
+  const teams = await listTeams(client);
   const teamIdsToFetch = resolveTeamIds(teams, options.teamIds);
 
   const byId = new Map<string, ProjectSummary>();
   for (const teamId of teamIdsToFetch) {
-    const projects = await fetchProjectsForTeam(teamId);
+    const projects = await fetchProjectsForTeam(client, teamId);
     for (const p of projects) {
       const existing = byId.get(p.id);
       if (existing) {
@@ -99,7 +98,6 @@ export async function listProjects(options: ListProjectsOptions = {}): Promise<P
   }
 
   if (byId.size === 0) {
-    const client = getLinearClient();
     const connection = await client.projects({ first: 50, includeArchived: false });
     const nodes = connection?.nodes ?? [];
     for (const p of nodes) {
@@ -126,10 +124,9 @@ export async function listProjects(options: ListProjectsOptions = {}): Promise<P
 
 /**
  * List projects that are considered "active" (not completed/canceled).
- * Linear may use custom statuses or deprecated state; we treat any non-terminal state as active.
  */
-export async function listActiveProjects(options: ListProjectsOptions = {}): Promise<ProjectSummary[]> {
-  const all = await listProjects(options);
+export async function listActiveProjects(client: LinearClient, options: ListProjectsOptions = {}): Promise<ProjectSummary[]> {
+  const all = await listProjects(client, options);
   return all.filter(
     (p) =>
       isActiveForReporting(p) &&

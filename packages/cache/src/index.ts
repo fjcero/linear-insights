@@ -2,6 +2,9 @@ import { Database } from "bun:sqlite";
 import { join } from "node:path";
 import { homedir } from "node:os";
 import { CREATE_TABLE, CREATE_INDEX, type CacheKind } from "./schema.js";
+import type { CacheAdapter, CacheEntry } from "./adapter.js";
+
+export type { CacheAdapter, CacheEntry } from "./adapter.js";
 
 const CACHE_DISABLED_ENV = "LINEAR_INSIGHTS_CACHE";
 
@@ -24,12 +27,17 @@ function defaultDbPath(): string {
   return join(homedir(), ".cache", "linear-insights", "report.db");
 }
 
-/** Uses Bun's built-in SQLite (no native addon). Requires Bun runtime. */
-function createBunDb(path: string): {
+// ---------------------------------------------------------------------------
+// SQLite low-level helpers
+// ---------------------------------------------------------------------------
+
+type BunDb = {
   getRow: (sql: string, ...params: (string | number)[]) => { data: string } | undefined;
   run: (sql: string, ...params: (string | number)[]) => void;
   close: () => void;
-} {
+};
+
+function createBunDb(path: string): BunDb {
   const database = new Database(path, { create: true });
   database.run("PRAGMA journal_mode = WAL;");
   database.run(CREATE_TABLE);
@@ -47,117 +55,177 @@ function createBunDb(path: string): {
   };
 }
 
-let db: ReturnType<typeof createBunDb> | null = null;
-
-/**
- * Open (or get) the report cache DB. Idempotent.
- * Uses Bun's built-in SQLite; requires Bun to run.
- */
-export async function openReportCache(options: ReportCacheOptions = {}): Promise<ReportCache> {
-  const refresh = options.forceRefresh ?? false;
-  if (db) return new ReportCache(db, isCacheDisabled(), refresh);
-  const path = options.dbPath ?? defaultDbPath();
-  const { mkdir } = await import("node:fs/promises");
-  const { dirname } = await import("node:path");
-  await mkdir(dirname(path), { recursive: true });
-  db = createBunDb(path);
-  return new ReportCache(db, isCacheDisabled(), refresh);
-}
-
-/**
- * Close the cache DB (e.g. on exit). No-op if not open.
- */
-export function closeReportCache(): void {
-  if (db) {
-    db.close();
-    db = null;
-  }
-}
+// ---------------------------------------------------------------------------
+// SQLiteCacheAdapter — the default CacheAdapter backed by Bun's built-in SQLite
+// ---------------------------------------------------------------------------
 
 const SEL_SQL =
   "SELECT data FROM report_cache WHERE scope = ? AND kind = ? AND key = ? AND expires_at > ?";
 const INS_SQL = `INSERT INTO report_cache (scope, kind, key, data, expires_at, updated_at)
  VALUES (?, ?, ?, ?, ?, ?)
  ON CONFLICT (scope, kind, key) DO UPDATE SET data = ?, expires_at = ?, updated_at = ?`;
-const DEL_SQL = "DELETE FROM report_cache WHERE expires_at <= ?";
+const DEL_SCOPE_SQL = "DELETE FROM report_cache WHERE scope = ?";
+const DEL_EXPIRED_SQL = "DELETE FROM report_cache WHERE expires_at <= ?";
 
 /**
- * Report cache: get/set teams, projects, issues by scope (e.g. API key hash).
- * All methods are async for consistency; storage is synchronous SQLite.
+ * CacheAdapter implementation backed by SQLite (Bun's built-in driver).
+ * Requires the Bun runtime.
+ */
+export class SQLiteCacheAdapter implements CacheAdapter {
+  constructor(private readonly db: BunDb) {}
+
+  async get(scope: string, kind: CacheKind, key: string): Promise<CacheEntry | null> {
+    const row = this.db.getRow(SEL_SQL, scope, kind, key, Date.now());
+    if (!row) return null;
+    return { data: row.data, expiresAt: 0 }; // expiresAt omitted — already validated by SQL
+  }
+
+  async set(scope: string, kind: CacheKind, key: string, data: string, expiresAt: number): Promise<void> {
+    const now = Date.now();
+    this.db.run(INS_SQL, scope, kind, key, data, expiresAt, now, data, expiresAt, now);
+  }
+
+  async clear(scope: string): Promise<void> {
+    this.db.run(DEL_SCOPE_SQL, scope);
+  }
+
+  async vacuum(): Promise<void> {
+    this.db.run(DEL_EXPIRED_SQL, Date.now());
+  }
+
+  close(): void {
+    this.db.close();
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Module-level singleton adapter (shared across all ReportCache instances)
+// ---------------------------------------------------------------------------
+
+let adapter: CacheAdapter | null = null;
+
+const CACHE_BACKEND_ENV = "LINEAR_INSIGHTS_CACHE_BACKEND";
+
+function useVercelKV(): boolean {
+  const override = process.env[CACHE_BACKEND_ENV];
+  if (override === "sqlite") return false;
+  if (override === "vercel-kv") return true;
+
+  return (
+    process.env.VERCEL === "1" &&
+    typeof process.env.KV_REST_API_URL === "string" &&
+    process.env.KV_REST_API_URL.length > 0
+  );
+}
+
+/**
+ * Open (or return) the cache adapter. Idempotent.
+ * - On Vercel (VERCEL=1 + KV_REST_API_URL): uses Vercel KV (Redis)
+ * - Otherwise: uses SQLite at ~/.cache/linear-insights/report.db
+ */
+export async function openReportCache(options: ReportCacheOptions = {}): Promise<ReportCache> {
+  const refresh = options.forceRefresh ?? false;
+  if (adapter) return new ReportCache(adapter, isCacheDisabled(), refresh);
+
+  if (useVercelKV()) {
+    const { kv } = await import("@vercel/kv");
+    const { VercelKVAdapter } = await import("./kv-adapter.js");
+    adapter = new VercelKVAdapter(kv);
+  } else {
+    const path = options.dbPath ?? defaultDbPath();
+    const { mkdir } = await import("node:fs/promises");
+    const { dirname } = await import("node:path");
+    await mkdir(dirname(path), { recursive: true });
+    adapter = new SQLiteCacheAdapter(createBunDb(path));
+  }
+
+  return new ReportCache(adapter, isCacheDisabled(), refresh);
+}
+
+/**
+ * Close the underlying connection (e.g. on exit). No-op if not open.
+ * SQLite connections are closed; Vercel KV is stateless and has no-op.
+ */
+export function closeReportCache(): void {
+  if (adapter && typeof (adapter as { close?: () => void }).close === "function") {
+    (adapter as { close: () => void }).close();
+  }
+  adapter = null;
+}
+
+// ---------------------------------------------------------------------------
+// ReportCache — typed, domain-aware wrapper over a CacheAdapter
+// ---------------------------------------------------------------------------
+
+/**
+ * Report cache: typed get/set for teams, projects, issues, history.
+ * Delegates storage to a CacheAdapter — swap for Redis/Vercel KV without
+ * changing any call sites.
  */
 export class ReportCache {
   constructor(
-    private readonly database: ReturnType<typeof createBunDb>,
+    private readonly adapter: CacheAdapter,
     private readonly disabled: boolean,
     private readonly forceRefresh: boolean = false,
   ) {}
 
-  private get(scope: string, kind: CacheKind, key: string): string | null {
+  private async fetch(scope: string, kind: CacheKind, key: string): Promise<string | null> {
     if (this.disabled || this.forceRefresh) return null;
-    const now = Date.now();
-    const row = this.database.getRow(SEL_SQL, scope, kind, key, now);
-    return row?.data ?? null;
+    const entry = await this.adapter.get(scope, kind, key);
+    return entry?.data ?? null;
   }
 
-  private set(scope: string, kind: CacheKind, key: string, data: string, ttlSeconds: number): void {
+  private async store(scope: string, kind: CacheKind, key: string, data: string, ttlSeconds: number): Promise<void> {
     if (this.disabled) return;
-    const now = Date.now();
-    const expiresAt = now + ttlSeconds * 1000;
-    this.database.run(INS_SQL, scope, kind, key, data, expiresAt, now, data, expiresAt, now);
+    const expiresAt = Date.now() + ttlSeconds * 1000;
+    await this.adapter.set(scope, kind, key, data, expiresAt);
   }
 
   async getTeams<T>(scope: string): Promise<T | null> {
-    const raw = this.get(scope, "teams", "");
+    const raw = await this.fetch(scope, "teams", "");
     return raw != null ? (JSON.parse(raw) as T) : null;
   }
 
   async setTeams(scope: string, data: unknown, ttlSeconds: number): Promise<void> {
-    this.set(scope, "teams", "", JSON.stringify(data), ttlSeconds);
+    await this.store(scope, "teams", "", JSON.stringify(data), ttlSeconds);
   }
 
-  /** key = sorted team IDs joined, or "all" for no filter. */
   async getProjects<T>(scope: string, key: string): Promise<T | null> {
-    const raw = this.get(scope, "projects", key);
+    const raw = await this.fetch(scope, "projects", key);
     return raw != null ? (JSON.parse(raw) as T) : null;
   }
 
   async setProjects(scope: string, key: string, data: unknown, ttlSeconds: number): Promise<void> {
-    this.set(scope, "projects", key, JSON.stringify(data), ttlSeconds);
+    await this.store(scope, "projects", key, JSON.stringify(data), ttlSeconds);
   }
 
   async getIssues<T>(scope: string, projectId: string): Promise<T | null> {
-    const raw = this.get(scope, "issues", projectId);
+    const raw = await this.fetch(scope, "issues", projectId);
     return raw != null ? (JSON.parse(raw) as T) : null;
   }
 
-  async setIssues(
-    scope: string,
-    projectId: string,
-    data: unknown,
-    ttlSeconds: number
-  ): Promise<void> {
-    this.set(scope, "issues", projectId, JSON.stringify(data), ttlSeconds);
+  async setIssues(scope: string, projectId: string, data: unknown, ttlSeconds: number): Promise<void> {
+    await this.store(scope, "issues", projectId, JSON.stringify(data), ttlSeconds);
   }
 
-  /** key = projectId. */
   async getHistory<T>(scope: string, projectId: string): Promise<T | null> {
-    const raw = this.get(scope, "history", projectId);
+    const raw = await this.fetch(scope, "history", projectId);
     return raw != null ? (JSON.parse(raw) as T) : null;
   }
 
-  async setHistory(
-    scope: string,
-    projectId: string,
-    data: unknown,
-    ttlSeconds: number
-  ): Promise<void> {
-    this.set(scope, "history", projectId, JSON.stringify(data), ttlSeconds);
+  async setHistory(scope: string, projectId: string, data: unknown, ttlSeconds: number): Promise<void> {
+    await this.store(scope, "history", projectId, JSON.stringify(data), ttlSeconds);
+  }
+
+  /** Clear all cached data for a scope (e.g. on token revocation). */
+  async clearScope(scope: string): Promise<void> {
+    await this.adapter.clear(scope);
   }
 
   /** Remove expired rows (optional maintenance). */
-  vacuum(): void {
+  async vacuum(): Promise<void> {
     if (this.disabled) return;
-    this.database.run(DEL_SQL, Date.now());
+    await this.adapter.vacuum?.();
   }
 }
 

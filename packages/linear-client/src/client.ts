@@ -1,30 +1,33 @@
 import { LinearClient } from "@linear/sdk";
 
-const API_KEY = process.env.LINEAR_API_KEY;
-
-function getClient(): LinearClient {
-  if (!API_KEY?.trim()) {
-    throw new Error("LINEAR_API_KEY is not set. Add it to .env.local and use direnv (or export it).");
+/**
+ * Create a Linear API client from an API key or OAuth access token.
+ * Both token types are passed via the `apiKey` option — the Linear SDK treats them identically.
+ */
+export function createLinearClient(token: string): LinearClient {
+  if (!token?.trim()) {
+    throw new Error(
+      "A Linear token is required. Pass LINEAR_API_KEY (API key) or an OAuth access token."
+    );
   }
-  return new LinearClient({ apiKey: API_KEY.trim() });
+  return new LinearClient({ apiKey: token.trim() });
 }
 
-let client: LinearClient | null = null;
-
-/**
- * Returns the shared Linear client (uses LINEAR_API_KEY from env).
- * Uses a singleton so the same client is reused.
- */
-export function getLinearClient(): LinearClient {
-  if (!client) {
-    client = getClient();
-  }
-  return client;
+export interface ViewerInfo {
+  id: string;
+  name: string;
+  email: string;
 }
 
 /**
- * Optional: pass an API key explicitly (e.g. for tests or multiple keys).
+ * Fetch the authenticated user's profile from Linear.
+ * Useful after OAuth to get the user ID for cache scoping.
  */
-export function createLinearClient(apiKey: string): LinearClient {
-  return new LinearClient({ apiKey: apiKey.trim() });
+export async function getViewerInfo(client: LinearClient): Promise<ViewerInfo> {
+  const viewer = await client.viewer;
+  return {
+    id: viewer.id,
+    name: viewer.name,
+    email: viewer.email,
+  };
 }

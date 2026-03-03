@@ -13,7 +13,9 @@
   "scripts": {
     "typecheck": "tsc --noEmit"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@vercel/kv": "^3.0.0"
+  },
   "devDependencies": {
     "@types/node": "^22.10.1",
     "typescript": "^5.7.2"

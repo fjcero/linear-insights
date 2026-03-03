@@ -1,4 +1,5 @@
-export { getLinearClient, createLinearClient } from "./client.js";
+export { createLinearClient, getViewerInfo } from "./client.js";
+export type { ViewerInfo } from "./client.js";
 export { listTeams, type TeamInfo } from "./teams.js";
 export {
   listProjects,

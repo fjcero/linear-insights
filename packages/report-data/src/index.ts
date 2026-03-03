@@ -14,6 +14,7 @@ import type {
 } from "@linear-insights/linear-client";
 import {
 	buildProjectDateTimeline,
+	createLinearClient,
 	fetchProjectHistory,
 	fetchProjectUpdates,
 	isActiveForReporting,
@@ -22,11 +23,20 @@ import {
 	listProjects,
 	listTeams,
 } from "@linear-insights/linear-client";
+import type { LinearClient } from "@linear/sdk";
 
 const TEAMS_TTL = 365 * 24 * 60 * 60; // 1 year
 const PROJECTS_TTL = 24 * 60 * 60; // 1 day
 const ISSUES_TTL = 24 * 60 * 60; // 1 day
 const HISTORY_TTL = 60 * 60; // 1h
+
+/**
+ * Derive a stable cache scope from a Linear user ID (preferred for OAuth)
+ * or from an API key hash (fallback for CLI / API-key usage).
+ */
+export function cacheScopeFromUserId(userId: string): string {
+	return userId;
+}
 
 export function cacheScopeFromApiKey(apiKey: string): string {
 	return createHash("sha256").update(apiKey).digest("hex").slice(0, 16);
@@ -36,7 +46,6 @@ let cacheInstance: ReportCache | null = null;
 
 /**
  * Open the report cache (SQLite). Call once before using get*Cached.
- * Uses LINEAR_INSIGHTS_CACHE_DB or ~/.cache/linear-insights/report.db.
  */
 export async function openCache(
 	options?: ReportCacheOptions,
@@ -49,13 +58,6 @@ export async function openCache(
 export function closeCache(): void {
 	closeReportCache();
 	cacheInstance = null;
-}
-
-/**
- * Get cache scope for current env (from LINEAR_API_KEY). Use this for get*Cached.
- */
-export function getScope(): string {
-	return cacheScopeFromApiKey(process.env.LINEAR_API_KEY ?? "");
 }
 
 /**
@@ -153,6 +155,23 @@ export interface SyncLinearDataOptions {
 	teamIds?: string[];
 	/** Bypass cache and fetch fresh data, then write back to cache. */
 	forceRefresh?: boolean;
+	/**
+	 * OAuth access token or API key.
+	 * Defaults to LINEAR_API_KEY env var if not provided (CLI / local usage).
+	 */
+	token?: string;
+	/**
+	 * Linear user ID to use as the cache scope.
+	 * When provided (OAuth flow), the user ID is used directly.
+	 * Otherwise, the scope is derived from a hash of the token.
+	 */
+	userId?: string;
+	/**
+	 * Whether to close the cache when sync completes. Default true for CLI (one-shot).
+	 * Set false when used from a long-running server to avoid closing the shared DB
+	 * while other requests may still be using it.
+	 */
+	closeAfterSync?: boolean;
 }
 
 /**
@@ -160,17 +179,22 @@ export interface SyncLinearDataOptions {
  * Both CLI and app server can call this. No report computation—only populating the cache.
  */
 export async function syncLinearData(options?: SyncLinearDataOptions): Promise<void> {
+	const token = options?.token ?? process.env.LINEAR_API_KEY ?? "";
+	const scope = options?.userId
+		? cacheScopeFromUserId(options.userId)
+		: cacheScopeFromApiKey(token);
+
 	const teamIds =
 		options?.teamIds ??
 		process.env.LINEAR_TEAM_IDS?.split(",")
 			.map((s) => s.trim())
 			.filter(Boolean);
 
+	const client: LinearClient = createLinearClient(token);
 	const cache = await openCache({ forceRefresh: options?.forceRefresh ?? false });
-	const scope = getScope();
 
 	try {
-		const teams = await getTeamsCached(cache, scope, () => listTeams());
+		const teams = await getTeamsCached(cache, scope, () => listTeams(client));
 		if (teams.length === 0) {
 			return;
 		}
@@ -179,7 +203,7 @@ export async function syncLinearData(options?: SyncLinearDataOptions): Promise<v
 			cache,
 			scope,
 			teamIds?.length ? teamIds : undefined,
-			() => listProjects(teamIds?.length ? { teamIds } : {}),
+			() => listProjects(client, teamIds?.length ? { teamIds } : {}),
 		);
 
 		const activeProjects = allProjects.filter(
@@ -191,7 +215,7 @@ export async function syncLinearData(options?: SyncLinearDataOptions): Promise<v
 				: allProjects.map((p) => p.id);
 
 		await getIssuesCached(cache, scope, projectIds, (opts) =>
-			listIssuesByProject(opts),
+			listIssuesByProject(client, opts),
 		);
 
 		await getProjectTimelinesCached(cache, scope, projectIds, async (pid) => {
@@ -203,14 +227,25 @@ export async function syncLinearData(options?: SyncLinearDataOptions): Promise<v
 					teamIds: [],
 				};
 			const [history, updates] = await Promise.all([
-				fetchProjectHistory(pid),
-				fetchProjectUpdates(pid),
+				fetchProjectHistory(client, pid),
+				fetchProjectUpdates(client, pid),
 			]);
 			return buildProjectDateTimeline(proj, history, updates);
 		});
 	} finally {
-		closeCache();
+		if (options?.closeAfterSync !== false) {
+			closeCache();
+		}
 	}
+}
+
+/**
+ * Get the cache scope for the current environment (from LINEAR_API_KEY).
+ * Used by CLI and report-api when running without OAuth.
+ * @deprecated Prefer passing userId or token explicitly via SyncLinearDataOptions.
+ */
+export function getScope(): string {
+	return cacheScopeFromApiKey(process.env.LINEAR_API_KEY ?? "");
 }
 
 export type { ReportCache, ReportCacheOptions } from "@linear-insights/cache";

@@ -145,6 +145,10 @@ export async function openReportCache(options: ReportCacheOptions = {}): Promise
     }
     const kv = createClient({ url, token });
     adapter = new VercelKVAdapter(kv);
+  } else if (process.env.VERCEL === "1") {
+    throw new Error(
+      "On Vercel, Redis (Upstash) is required. Set UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN in Project Settings → Environment Variables, then redeploy."
+    );
   } else {
     const path = options.dbPath ?? defaultDbPath();
     const { mkdir } = await import("node:fs/promises");

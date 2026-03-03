@@ -1,1 +1,5 @@
-export { POST } from "../../apps/app/api/auth/logout.js";
+import { handleLogout } from "../../apps/app/server/auth.js";
+
+export async function POST(request: Request): Promise<Response> {
+  return handleLogout(request);
+}

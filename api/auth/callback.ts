@@ -1,1 +1,5 @@
-export { GET } from "../../apps/app/api/auth/callback.js";
+import { handleCallback } from "../../apps/app/server/auth.js";
+
+export async function GET(request: Request): Promise<Response> {
+  return handleCallback(request);
+}

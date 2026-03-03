@@ -1,1 +1,5 @@
-export { GET } from "../../apps/app/api/auth/login.js";
+import { handleLogin } from "../../apps/app/server/auth.js";
+
+export async function GET(request: Request): Promise<Response> {
+  return handleLogin(request);
+}

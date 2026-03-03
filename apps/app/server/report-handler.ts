@@ -191,7 +191,8 @@ export async function handleReportRequest(req: Request): Promise<Response> {
   try {
     return await handleReport(req, url);
   } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
     console.error("Report error:", err);
-    return json({ error: "Report generation failed. See server logs." }, 500);
+    return json({ error: "Report generation failed", details: msg }, 500);
   }
 }

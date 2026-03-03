@@ -1,4 +1,3 @@
-import { Database } from "bun:sqlite";
 import { join } from "node:path";
 import { homedir } from "node:os";
 import { CREATE_TABLE, CREATE_INDEX, type CacheKind } from "./schema.js";
@@ -37,7 +36,8 @@ type BunDb = {
   close: () => void;
 };
 
-function createBunDb(path: string): BunDb {
+async function createBunDb(path: string): Promise<BunDb> {
+  const { Database } = await import("bun:sqlite");
   const database = new Database(path, { create: true });
   database.run("PRAGMA journal_mode = WAL;");
   database.run(CREATE_TABLE);
@@ -106,21 +106,27 @@ let adapter: CacheAdapter | null = null;
 
 const CACHE_BACKEND_ENV = "LINEAR_INSIGHTS_CACHE_BACKEND";
 
+function getKvUrl(): string | null {
+  const url = process.env.KV_REST_API_URL ?? process.env.UPSTASH_REDIS_REST_URL;
+  return typeof url === "string" && url.length > 0 ? url : null;
+}
+
+function getKvToken(): string | null {
+  const token = process.env.KV_REST_API_TOKEN ?? process.env.UPSTASH_REDIS_REST_TOKEN;
+  return typeof token === "string" && token.length > 0 ? token : null;
+}
+
 function useVercelKV(): boolean {
   const override = process.env[CACHE_BACKEND_ENV];
   if (override === "sqlite") return false;
   if (override === "vercel-kv") return true;
 
-  return (
-    process.env.VERCEL === "1" &&
-    typeof process.env.KV_REST_API_URL === "string" &&
-    process.env.KV_REST_API_URL.length > 0
-  );
+  return process.env.VERCEL === "1" && getKvUrl() != null && getKvToken() != null;
 }
 
 /**
  * Open (or return) the cache adapter. Idempotent.
- * - On Vercel (VERCEL=1 + KV_REST_API_URL): uses Vercel KV (Redis)
+ * - On Vercel (VERCEL=1 + KV/Upstash env vars): uses Redis via @vercel/kv
  * - Otherwise: uses SQLite at ~/.cache/linear-insights/report.db
  */
 export async function openReportCache(options: ReportCacheOptions = {}): Promise<ReportCache> {
@@ -128,15 +134,23 @@ export async function openReportCache(options: ReportCacheOptions = {}): Promise
   if (adapter) return new ReportCache(adapter, isCacheDisabled(), refresh);
 
   if (useVercelKV()) {
-    const { kv } = await import("@vercel/kv");
+    const { createClient } = await import("@vercel/kv");
     const { VercelKVAdapter } = await import("./kv-adapter.js");
+    const url = getKvUrl();
+    const token = getKvToken();
+    if (!url || !token) {
+      throw new Error(
+        "KV cache requires KV_REST_API_URL+KV_REST_API_TOKEN or UPSTASH_REDIS_REST_URL+UPSTASH_REDIS_REST_TOKEN. Add them in Vercel Project Settings → Environment Variables."
+      );
+    }
+    const kv = createClient({ url, token });
     adapter = new VercelKVAdapter(kv);
   } else {
     const path = options.dbPath ?? defaultDbPath();
     const { mkdir } = await import("node:fs/promises");
     const { dirname } = await import("node:path");
     await mkdir(dirname(path), { recursive: true });
-    adapter = new SQLiteCacheAdapter(createBunDb(path));
+    adapter = new SQLiteCacheAdapter(await createBunDb(path));
   }
 
   return new ReportCache(adapter, isCacheDisabled(), refresh);

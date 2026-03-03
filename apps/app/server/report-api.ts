@@ -6,7 +6,6 @@
  */
 import {
   openCache,
-  closeCache,
   cacheScopeFromUserId,
   cacheScopeFromApiKey,
   projectsCacheKey,
@@ -81,24 +80,20 @@ async function ensureCacheReady(): Promise<void> {
     if (!envKey?.trim()) return;
     const cache = await openCache({ forceRefresh: false });
     const scope = cacheScopeFromApiKey(envKey.trim());
-    try {
-      const teams = await cache.getTeams<TeamInfo[]>(scope);
-      const projects = await cache.getProjects<ProjectSummary[]>(scope, PROJECTS_KEY);
-      if (teams != null && teams.length > 0 && projects != null && projects.length > 0) {
-        return;
-      }
-    } finally {
-      closeCache();
+    const teams = await cache.getTeams<TeamInfo[]>(scope);
+    const projects = await cache.getProjects<ProjectSummary[]>(scope, PROJECTS_KEY);
+    if (teams != null && teams.length > 0 && projects != null && projects.length > 0) {
+      return;
     }
     console.log("Cache empty or missing — syncing from Linear…");
-    await syncLinearData({ token: envKey.trim(), forceRefresh: false });
+    await syncLinearData({ token: envKey.trim(), forceRefresh: false, closeAfterSync: false });
     console.log("Sync done.");
     return;
   }
 
   if (envKey?.trim()) {
     console.log("Refreshing cache from Linear on startup…");
-    await syncLinearData({ token: envKey.trim(), forceRefresh: true });
+    await syncLinearData({ token: envKey.trim(), forceRefresh: true, closeAfterSync: false });
     console.log("Refresh done.");
   } else {
     console.log(
@@ -144,62 +139,58 @@ async function handleReport(req: Request, url: URL): Promise<Response> {
     | { ok: false; response: Response }
   > {
     const cache = await openCache({ forceRefresh: false });
-    try {
-      const teams = await cache.getTeams<TeamInfo[]>(scope);
-      if (!teams || teams.length === 0) {
-        return {
-          ok: false,
-          response: json(
-            { error: "Cache empty. Please wait while data syncs, or try again shortly." },
-            503
-          ),
-        };
-      }
-
-      const allProjects = await cache.getProjects<ProjectSummary[]>(scope, PROJECTS_KEY);
-      if (!allProjects || allProjects.length === 0) {
-        return {
-          ok: false,
-          response: json(
-            { error: "Cache empty. Please wait while data syncs, or try again shortly." },
-            503
-          ),
-        };
-      }
-
-      let projects = allProjects;
-      if (teamParam && teamParam !== "all") {
-        const lower = teamParam.toLowerCase();
-        const resolvedTeamId = teams.find(
-          (t) => t.id.toLowerCase() === lower || t.key.toLowerCase() === lower
-        )?.id;
-        if (!resolvedTeamId) {
-          return { ok: false, response: json({ error: `Unknown team filter: ${teamParam}` }, 400) };
-        }
-        projects = allProjects.filter((p) => p.teamIds.includes(resolvedTeamId));
-      }
-
-      const issuesByProject = new Map<string, IssueSummary[]>();
-      for (const p of projects) {
-        const issues = await cache.getIssues<IssueSummary[]>(scope, p.id);
-        issuesByProject.set(p.id, issues ?? []);
-      }
-
-      const timelines: ProjectDateTimeline[] = [];
-      for (const p of projects) {
-        const t = await cache.getHistory<ProjectDateTimeline>(scope, p.id);
-        if (t) timelines.push(t);
-      }
-
-      return { ok: true, teams, projects, issuesByProject, timelines };
-    } finally {
-      closeCache();
+    const teams = await cache.getTeams<TeamInfo[]>(scope);
+    if (!teams || teams.length === 0) {
+      return {
+        ok: false,
+        response: json(
+          { error: "Cache empty. Please wait while data syncs, or try again shortly." },
+          503
+        ),
+      };
     }
+
+    const allProjects = await cache.getProjects<ProjectSummary[]>(scope, PROJECTS_KEY);
+    if (!allProjects || allProjects.length === 0) {
+      return {
+        ok: false,
+        response: json(
+          { error: "Cache empty. Please wait while data syncs, or try again shortly." },
+          503
+        ),
+      };
+    }
+
+    let projects = allProjects;
+    if (teamParam && teamParam !== "all") {
+      const lower = teamParam.toLowerCase();
+      const resolvedTeamId = teams.find(
+        (t) => t.id.toLowerCase() === lower || t.key.toLowerCase() === lower
+      )?.id;
+      if (!resolvedTeamId) {
+        return { ok: false, response: json({ error: `Unknown team filter: ${teamParam}` }, 400) };
+      }
+      projects = allProjects.filter((p) => p.teamIds.includes(resolvedTeamId));
+    }
+
+    const issuesByProject = new Map<string, IssueSummary[]>();
+    for (const p of projects) {
+      const issues = await cache.getIssues<IssueSummary[]>(scope, p.id);
+      issuesByProject.set(p.id, issues ?? []);
+    }
+
+    const timelines: ProjectDateTimeline[] = [];
+    for (const p of projects) {
+      const t = await cache.getHistory<ProjectDateTimeline>(scope, p.id);
+      if (t) timelines.push(t);
+    }
+
+    return { ok: true, teams, projects, issuesByProject, timelines };
   }
 
   // Trigger a per-user sync if cache is empty
   async function triggerUserSync(): Promise<void> {
-    await syncLinearData({ token, userId: auth.userId, forceRefresh: false });
+    await syncLinearData({ token, userId: auth.userId, forceRefresh: false, closeAfterSync: false });
   }
 
   let snapshot = await readFromCache();
@@ -216,20 +207,16 @@ async function handleReport(req: Request, url: URL): Promise<Response> {
   if (snapshot.projects.length > 0 && snapshot.timelines.length === 0) {
     console.log("No project timelines in cache — backfilling…");
     const cache = await openCache({ forceRefresh: false });
-    try {
-      await getProjectTimelinesCached(cache, scope, snapshot.projects.map((p) => p.id), async (pid) => {
-        const proj =
-          snapshot.ok ? snapshot.projects.find((p) => p.id === pid) ?? { id: pid, name: pid, state: "", teamIds: [] }
-                     : { id: pid, name: pid, state: "", teamIds: [] };
-        const [history, updates] = await Promise.all([
-          fetchProjectHistory(client, pid),
-          fetchProjectUpdates(client, pid),
-        ]);
-        return buildProjectDateTimeline(proj, history, updates);
-      });
-    } finally {
-      closeCache();
-    }
+    await getProjectTimelinesCached(cache, scope, snapshot.projects.map((p) => p.id), async (pid) => {
+      const proj =
+        snapshot.ok ? snapshot.projects.find((p) => p.id === pid) ?? { id: pid, name: pid, state: "", teamIds: [] }
+                   : { id: pid, name: pid, state: "", teamIds: [] };
+      const [history, updates] = await Promise.all([
+        fetchProjectHistory(client, pid),
+        fetchProjectUpdates(client, pid),
+      ]);
+      return buildProjectDateTimeline(proj, history, updates);
+    });
     snapshot = await readFromCache();
     if (!snapshot.ok) return snapshot.response;
   }
@@ -287,13 +274,15 @@ const server = Bun.serve({
     // Report endpoint
     if (req.method === "GET" && (url.pathname === "/report" || url.pathname === "/report.json")) {
       if (!cacheReady) {
-        // Still in startup sync — check if this user can serve from cache
         const auth = getAuthContext(req);
         if (!auth) return json({ error: "Unauthenticated. Log in via /auth/login." }, 401);
-        // Try to serve from existing cache even during startup sync
-        return handleReport(req, url);
       }
-      return handleReport(req, url);
+      try {
+        return await handleReport(req, url);
+      } catch (err) {
+        console.error("Report error:", err);
+        return json({ error: "Report generation failed. See server logs." }, 500);
+      }
     }
 
     return new Response("Not Found", { status: 404 });

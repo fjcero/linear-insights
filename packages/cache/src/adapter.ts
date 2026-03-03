@@ -31,4 +31,9 @@ export interface CacheAdapter {
    * Optional: delete expired rows (maintenance / eviction). No-op by default.
    */
   vacuum?(): Promise<void>;
+
+  /**
+   * Optional: close underlying connection (e.g. SQLite). No-op for stateless backends like KV.
+   */
+  close?(): void;
 }

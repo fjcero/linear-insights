@@ -33,7 +33,7 @@ Open the URL shown by Vite (usually http://localhost:5173).
 ## Environment
 
 - `LINEAR_API_KEY` (required) — set in `.env.local`
-- `LINEAR_INSIGHTS_CACHE_DB` (optional) — default `~/.cache/linear-insights/report.db`
+- `LINEAR_INSIGHTS_CACHE_DB` (optional) — SQLite path locally; ignored when using Vercel KV on Vercel
 - `LINEAR_INSIGHTS_API_PORT` (optional) — default `3001`
 - `LINEAR_INSIGHTS_SYNC_ON_START` (optional) — default enabled; set `0` to disable startup refresh
 

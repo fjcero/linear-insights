@@ -99,33 +99,58 @@ export class SQLiteCacheAdapter implements CacheAdapter {
 }
 
 // ---------------------------------------------------------------------------
-// Module-level singleton DB (shared across all ReportCache instances)
+// Module-level singleton adapter (shared across all ReportCache instances)
 // ---------------------------------------------------------------------------
 
-let adapter: SQLiteCacheAdapter | null = null;
+let adapter: CacheAdapter | null = null;
+
+const CACHE_BACKEND_ENV = "LINEAR_INSIGHTS_CACHE_BACKEND";
+
+function useVercelKV(): boolean {
+  const override = process.env[CACHE_BACKEND_ENV];
+  if (override === "sqlite") return false;
+  if (override === "vercel-kv") return true;
+
+  return (
+    process.env.VERCEL === "1" &&
+    typeof process.env.KV_REST_API_URL === "string" &&
+    process.env.KV_REST_API_URL.length > 0
+  );
+}
 
 /**
- * Open (or return) the default SQLite-backed cache adapter. Idempotent.
+ * Open (or return) the cache adapter. Idempotent.
+ * - On Vercel (VERCEL=1 + KV_REST_API_URL): uses Vercel KV (Redis)
+ * - Otherwise: uses SQLite at ~/.cache/linear-insights/report.db
  */
 export async function openReportCache(options: ReportCacheOptions = {}): Promise<ReportCache> {
   const refresh = options.forceRefresh ?? false;
   if (adapter) return new ReportCache(adapter, isCacheDisabled(), refresh);
-  const path = options.dbPath ?? defaultDbPath();
-  const { mkdir } = await import("node:fs/promises");
-  const { dirname } = await import("node:path");
-  await mkdir(dirname(path), { recursive: true });
-  adapter = new SQLiteCacheAdapter(createBunDb(path));
+
+  if (useVercelKV()) {
+    const { kv } = await import("@vercel/kv");
+    const { VercelKVAdapter } = await import("./kv-adapter.js");
+    adapter = new VercelKVAdapter(kv);
+  } else {
+    const path = options.dbPath ?? defaultDbPath();
+    const { mkdir } = await import("node:fs/promises");
+    const { dirname } = await import("node:path");
+    await mkdir(dirname(path), { recursive: true });
+    adapter = new SQLiteCacheAdapter(createBunDb(path));
+  }
+
   return new ReportCache(adapter, isCacheDisabled(), refresh);
 }
 
 /**
- * Close the underlying DB connection (e.g. on exit). No-op if not open.
+ * Close the underlying connection (e.g. on exit). No-op if not open.
+ * SQLite connections are closed; Vercel KV is stateless and has no-op.
  */
 export function closeReportCache(): void {
-  if (adapter) {
-    adapter.close();
-    adapter = null;
+  if (adapter && typeof (adapter as { close?: () => void }).close === "function") {
+    (adapter as { close: () => void }).close();
   }
+  adapter = null;
 }
 
 // ---------------------------------------------------------------------------

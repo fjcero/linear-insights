@@ -166,6 +166,12 @@ export interface SyncLinearDataOptions {
 	 * Otherwise, the scope is derived from a hash of the token.
 	 */
 	userId?: string;
+	/**
+	 * Whether to close the cache when sync completes. Default true for CLI (one-shot).
+	 * Set false when used from a long-running server to avoid closing the shared DB
+	 * while other requests may still be using it.
+	 */
+	closeAfterSync?: boolean;
 }
 
 /**
@@ -227,7 +233,9 @@ export async function syncLinearData(options?: SyncLinearDataOptions): Promise<v
 			return buildProjectDateTimeline(proj, history, updates);
 		});
 	} finally {
-		closeCache();
+		if (options?.closeAfterSync !== false) {
+			closeCache();
+		}
 	}
 }
 

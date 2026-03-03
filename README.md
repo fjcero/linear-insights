@@ -40,7 +40,7 @@ bun run sync -- --force   # force refresh cache, then exit
 
 - `LINEAR_API_KEY` — required for CLI sync and insights (and as fallback for the app server when not using OAuth). Set in `.env.local`.
 - `LINEAR_TEAM_IDS` — comma-separated team IDs to scope active projects (optional).
-- **Cache (SQLite):** Report data (teams, projects, issues) is cached in a SQLite DB. Default path: `~/.cache/linear-insights/report.db` (override with `LINEAR_INSIGHTS_CACHE_DB`). Set `LINEAR_INSIGHTS_CACHE=0` to disable. TTLs: teams 1y, projects 1d, issues 1d.
+- **Cache:** Report data (teams, projects, issues) is cached locally or in Vercel KV. **Local:** SQLite at `~/.cache/linear-insights/report.db` (override with `LINEAR_INSIGHTS_CACHE_DB`). **Vercel:** Uses Vercel KV (Redis) when deployed (`VERCEL=1` + KV env vars). Override with `LINEAR_INSIGHTS_CACHE_BACKEND=sqlite` or `vercel-kv`. Set `LINEAR_INSIGHTS_CACHE=0` to disable. TTLs: teams 1y, projects 1d, issues 1d.
 - `LINEAR_INSIGHTS_FORCE_REFRESH=1` — force cache refresh (same as `--force`).
 - **Velocity chart:** An HTML bar chart (projects created/closed by month) is written to `linear-insights-velocity.html` in the current directory. Override with `LINEAR_INSIGHTS_CHART_OUTPUT=/path/to/file.html`. Set `LINEAR_INSIGHTS_CHART=nodeplotlib` to also open an interactive Plotly chart in the browser (via nodeplotlib).
 

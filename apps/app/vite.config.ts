@@ -9,10 +9,12 @@ export default defineConfig({
       "/report": {
         target: "http://127.0.0.1:3001",
         changeOrigin: true,
+        timeout: 300000, // 5 min — initial sync can be slow with many projects
       },
       "/report.json": {
         target: "http://127.0.0.1:3001",
         changeOrigin: true,
+        timeout: 300000,
       },
       "/auth": {
         target: "http://127.0.0.1:3001",

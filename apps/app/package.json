@@ -9,6 +9,7 @@
     "start": "bun run server/start-with-api.ts",
     "server": "bun run server/report-api.ts",
     "build": "vite build",
+    "build:api": "bun build api/report.ts --outdir=api --target=node",
     "preview": "vite preview",
     "typecheck": "tsgo --noEmit"
   },

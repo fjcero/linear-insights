@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "skills": {
+    "tanstack-start-best-practices": {
+      "source": "deckardger/tanstack-agent-skills",
+      "sourceType": "github",
+      "computedHash": "50c1b6d9b35b05927fa0c81962d560634385c9567b7b1d66396b171965b33105"
+    },
+    "turborepo": {
+      "source": "vercel/turborepo",
+      "sourceType": "github",
+      "computedHash": "64e9191d1ee7fe61adc8be01cc47cc32c899c41ebd123495e2b0ca6959a07677"
+    }
+  }
+}

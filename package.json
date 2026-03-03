@@ -1,10 +1,12 @@
 {
   "name": "linear-insights",
   "private": true,
+  "packageManager": "bun@1.2.2",
   "engines": { "node": "20.x" },
   "workspaces": ["apps/*", "packages/*"],
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "turbo": "latest"
   },
   "scripts": {
     "cli": "bun --env-file=.env.local --filter @linear-insights/cli start",
@@ -12,9 +14,8 @@
     "sync": "bun --env-file=.env.local --filter @linear-insights/cli start -- sync",
     "app:dev": "bun --env-file=.env.local run apps/app/server/start-with-api.ts",
     "app:dev:with-report": "LINEAR_INSIGHTS_JSON_OUTPUT=$PWD/apps/app/public/report.json bun --env-file=.env.local --filter @linear-insights/cli start -- insights && bun --env-file=.env.local --filter @linear-insights/app dev",
-    "build": "bun run build:api && bun --filter @linear-insights/app build",
-    "build:api": "bun run scripts/build-api.ts",
-    "app:build": "bun --filter @linear-insights/app build",
-    "app:preview": "bun --filter @linear-insights/app preview"
+    "build": "turbo run build build:api",
+    "app:build": "turbo run build --filter=@linear-insights/app",
+    "app:preview": "turbo run preview --filter=@linear-insights/app"
   }
 }

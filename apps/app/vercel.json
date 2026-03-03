@@ -1,11 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "functions": {
-    "api/**/*.ts": {
-      "runtime": "nodejs24.x",
-      "maxDuration": 60
-    }
-  },
+  "bunVersion": "1.x",
   "rewrites": [
     { "source": "/auth/login", "destination": "/api/auth/login" },
     { "source": "/auth/callback", "destination": "/api/auth/callback" },

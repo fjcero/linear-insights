@@ -1,0 +1,14 @@
+{
+  "name": "linear-insights",
+  "private": true,
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "cli": "bun --env-file=.env.local --filter @linear-insights/cli start",
+    "insights": "bun --env-file=.env.local --filter @linear-insights/cli start -- insights",
+    "sync": "bun --env-file=.env.local --filter @linear-insights/cli start -- sync",
+    "app:dev": "bun --env-file=.env.local run apps/app/server/start-with-api.ts",
+    "app:dev:with-report": "LINEAR_INSIGHTS_JSON_OUTPUT=$PWD/apps/app/public/report.json bun --env-file=.env.local --filter @linear-insights/cli start -- insights && bun --env-file=.env.local --filter @linear-insights/app dev",
+    "app:build": "bun --filter @linear-insights/app build",
+    "app:preview": "bun --filter @linear-insights/app preview"
+  }
+}

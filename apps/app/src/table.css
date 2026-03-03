@@ -1,0 +1,40 @@
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  background: #1e293b;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.report-table th,
+.report-table td {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #334155;
+}
+
+.report-table th {
+  font-weight: 600;
+  color: #94a3b8;
+  background: #0f172a;
+}
+
+.report-table tr:last-child td {
+  border-bottom: none;
+}
+
+.report-table tr:hover td {
+  background: #334155;
+}
+
+/* State colors for unified table */
+.state-now { color: #22c55e; }
+.state-next { color: #eab308; }
+.state-later { color: #94a3b8; }
+.state-completed { color: #c084fc; }
+
+.risk-on_track { color: #22c55e; }
+.risk-at_risk { color: #eab308; }
+.risk-off_track { color: #ef4444; }
+.risk-dash { color: #64748b; }

@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap");
+
+:root {
+  font-family: "IBM Plex Mono", system-ui, monospace;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #e2e8f0;
+  background-color: #050810;
+}
+
+html {
+  font-size: 20px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Dashboard chart tabs (WoW/MoM style) */
+.chart-tab {
+  background: transparent;
+  border: 1px solid #141c30;
+  color: #3d4f70;
+  padding: 6px 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.05em;
+  transition: all 0.15s;
+}
+.chart-tab:hover {
+  border-color: #3b5bdb;
+  color: #7093e0;
+}
+.chart-tab[data-on="true"] {
+  background: #0d1628;
+  border-color: #3b5bdb;
+  color: #93b4ff;
+}
+
+/* Dashboard open/completed rows */
+.dashboard-row {
+  display: grid;
+  grid-template-columns: 1fr 80px 90px 80px 100px 80px;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 6px;
+  transition: background 0.1s;
+}
+.dashboard-row:hover {
+  background: #0b0f1e;
+}
+.dashboard-row.header {
+  grid-template-columns: 1fr 80px 90px 80px 100px 80px;
+}
+.completed-block .dashboard-row:not(.header) {
+  grid-template-columns: 1fr 100px 100px 70px;
+}
+.completed-block .dashboard-row.header {
+  grid-template-columns: 1fr 100px 100px 70px;
+}
+.dashboard-hr {
+  height: 1px;
+  background: #0f1525;
+  margin: 0;
+}

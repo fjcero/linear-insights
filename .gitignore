@@ -1,0 +1,14 @@
+node_modules/
+.env.local
+dist/
+*.log
+.DS_Store
+**/public/report.json
+package-lock.json
+pnpm-lock.yaml
+.tmp-report*.json
+linear-insights-velocity.html
+**/report.json
+*.db
+*.sqlite
+*.sqlite3

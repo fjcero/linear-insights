@@ -1,0 +1,2324 @@
+{
+  "teams": [
+    {
+      "Key": "MOR",
+      "Name": "Tech + Prod",
+      "ID": "7a95d945-2463-4c5e-a883-561914ac3854"
+    }
+  ],
+  "activeProjects": [
+    {
+      "Name": "Landing: AFX",
+      "State": "Now",
+      "Start": "2026-02-28",
+      "Target": "2026-03-13"
+    },
+    {
+      "Name": "Landing: Referidos",
+      "State": "Now",
+      "Start": "2026-02-28",
+      "Target": "2026-03-13"
+    },
+    {
+      "Name": "WA Agent v3: Map real use cases and persist sessions",
+      "State": "Now",
+      "Start": "2026-01-01",
+      "Target": "2026-03-31"
+    },
+    {
+      "Name": "1st massive campaign: 9k nurses",
+      "State": "Now",
+      "Start": "2026-01-19",
+      "Target": "2026-03-31"
+    },
+    {
+      "Name": "Screening App v1 (Design Partner Program)",
+      "State": "Now",
+      "Start": "2026-01-01",
+      "Target": "2026-03-31"
+    },
+    {
+      "Name": "IT Tasks",
+      "State": "Now",
+      "Start": "2025-12-11",
+      "Target": "2026-12-10"
+    },
+    {
+      "Name": "Lead Magnet: Resume Builder",
+      "State": "Now",
+      "Start": "2026-03-01",
+      "Target": "2026-04-04"
+    },
+    {
+      "Name": "Data Enrichment: OCR and extraction for Résumés (PDF and DOCX)",
+      "State": "Next",
+      "Start": "2026-03-02",
+      "Target": "2026-03-31"
+    },
+    {
+      "Name": "Automate OCC Outbound",
+      "State": "Next",
+      "Start": "2026-03-16",
+      "Target": "2026-03-31"
+    },
+    {
+      "Name": "Lead magnet: Readiness Quiz",
+      "State": "Next",
+      "Start": "2026-04-01",
+      "Target": "2026-04-30"
+    },
+    {
+      "Name": "Automate OCC Inbound",
+      "State": "Next",
+      "Start": "2026-03-30",
+      "Target": "2026-04-13"
+    },
+    {
+      "Name": "Knowledge Base",
+      "State": "Next",
+      "Start": "2026-03-16",
+      "Target": "2026-03-31"
+    },
+    {
+      "Name": "Candidate Tracker v1",
+      "State": "Next",
+      "Start": "2026-03-16",
+      "Target": "2026-03-31"
+    },
+    {
+      "Name": "Job Aggregator",
+      "State": "Next",
+      "Start": "2026-03-02",
+      "Target": "2026-03-31"
+    },
+    {
+      "Name": "Dashboards v1",
+      "State": "Next",
+      "Start": "2026-03-16",
+      "Target": "2026-03-31"
+    },
+    {
+      "Name": "Blog content",
+      "State": "Next",
+      "Start": "2026-03-02",
+      "Target": "2026-03-31"
+    },
+    {
+      "Name": "OpenClaw",
+      "State": "Later",
+      "Start": "—",
+      "Target": "2026-04-30"
+    },
+    {
+      "Name": "Evals",
+      "State": "Later",
+      "Start": "2026-02-11",
+      "Target": "2026-04-30"
+    },
+    {
+      "Name": "Inbox Improvements",
+      "State": "Later",
+      "Start": "2026-01-01",
+      "Target": "2026-04-30"
+    },
+    {
+      "Name": "SEO Competitor analysis",
+      "State": "Later",
+      "Start": "2026-01-01",
+      "Target": "2026-04-30"
+    },
+    {
+      "Name": "Contract Review Platform",
+      "State": "Later",
+      "Start": "2026-04-01",
+      "Target": "2026-06-30"
+    },
+    {
+      "Name": "Engagement Score Tracking",
+      "State": "Later",
+      "Start": "2026-01-01",
+      "Target": "2026-06-30"
+    },
+    {
+      "Name": "Candidate Experience and follow-ups",
+      "State": "Later",
+      "Start": "2026-04-01",
+      "Target": "2026-06-30"
+    },
+    {
+      "Name": "Follow ups on candidate engagement",
+      "State": "Later",
+      "Start": "2026-01-01",
+      "Target": "2026-06-30"
+    },
+    {
+      "Name": "Widgets to capture traffic from the Website",
+      "State": "Later",
+      "Start": "2026-01-01",
+      "Target": "2026-05-31"
+    }
+  ],
+  "lifecycle": {
+    "rows": [
+      {
+        "Project": "OpenClaw",
+        "State": "backlog",
+        "Created": "2026-02-28",
+        "Updated": "2026-02-28",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "Data Enrichment: OCR a",
+        "State": "planned",
+        "Created": "2026-02-28",
+        "Updated": "2026-03-02",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "Automate OCC Outbound",
+        "State": "planned",
+        "Created": "2026-02-28",
+        "Updated": "2026-03-02",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "Landing: AFX",
+        "State": "started",
+        "Created": "2026-02-28",
+        "Updated": "2026-03-02",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "Landing: Referidos",
+        "State": "started",
+        "Created": "2026-02-28",
+        "Updated": "2026-03-02",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "Lead magnet: Readiness",
+        "State": "planned",
+        "Created": "2026-02-24",
+        "Updated": "2026-03-02",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "WA Agent v3: Map real ",
+        "State": "started",
+        "Created": "2026-02-19",
+        "Updated": "2026-02-28",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "Evals",
+        "State": "backlog",
+        "Created": "2026-02-11",
+        "Updated": "2026-02-28",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "WA Agent v2: Outbound ",
+        "State": "completed",
+        "Created": "2026-02-09",
+        "Updated": "2026-02-28",
+        "Closed": "2026-02-24",
+        "Lifetime (days)": "15"
+      },
+      {
+        "Project": "Rewarded Interviews",
+        "State": "completed",
+        "Created": "2026-01-30",
+        "Updated": "2026-03-02",
+        "Closed": "2026-03-02",
+        "Lifetime (days)": "31"
+      },
+      {
+        "Project": "1st massive campaign: ",
+        "State": "started",
+        "Created": "2026-01-19",
+        "Updated": "2026-03-02",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "Automate OCC Inbound",
+        "State": "planned",
+        "Created": "2026-01-19",
+        "Updated": "2026-03-02",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "Knowledge Base",
+        "State": "planned",
+        "Created": "2026-01-19",
+        "Updated": "2026-03-02",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "WA Agent v1: Outbound ",
+        "State": "completed",
+        "Created": "2026-01-19",
+        "Updated": "2026-02-28",
+        "Closed": "2026-02-23",
+        "Lifetime (days)": "35"
+      },
+      {
+        "Project": "Screening App v1 (Desi",
+        "State": "started",
+        "Created": "2026-01-19",
+        "Updated": "2026-03-02",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "Candidate Tracker v1",
+        "State": "planned",
+        "Created": "2026-01-19",
+        "Updated": "2026-03-02",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "Job Aggregator",
+        "State": "planned",
+        "Created": "2026-01-19",
+        "Updated": "2026-03-02",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "Agentic Infrastructure",
+        "State": "completed",
+        "Created": "2025-12-22",
+        "Updated": "2026-02-28",
+        "Closed": "2026-02-23",
+        "Lifetime (days)": "63"
+      },
+      {
+        "Project": "Dashboards v1",
+        "State": "planned",
+        "Created": "2025-12-10",
+        "Updated": "2026-03-02",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "Inbox Improvements",
+        "State": "backlog",
+        "Created": "2025-12-10",
+        "Updated": "2026-02-28",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "SEO Competitor analysi",
+        "State": "backlog",
+        "Created": "2025-12-09",
+        "Updated": "2026-02-28",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "Blog content",
+        "State": "planned",
+        "Created": "2025-12-09",
+        "Updated": "2026-03-02",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "IT Tasks",
+        "State": "started",
+        "Created": "2025-12-05",
+        "Updated": "2026-03-02",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "Acquisition Engine v1:",
+        "State": "completed",
+        "Created": "2025-12-05",
+        "Updated": "2026-01-12",
+        "Closed": "2026-01-12",
+        "Lifetime (days)": "38"
+      },
+      {
+        "Project": "Lead Magnet: Resume Bu",
+        "State": "started",
+        "Created": "2025-12-05",
+        "Updated": "2026-03-02",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "Automated Screening v1",
+        "State": "completed",
+        "Created": "2025-12-05",
+        "Updated": "2026-01-12",
+        "Closed": "2026-01-12",
+        "Lifetime (days)": "38"
+      },
+      {
+        "Project": "Experiment: Mexican Jo",
+        "State": "completed",
+        "Created": "2025-12-05",
+        "Updated": "2025-12-25",
+        "Closed": "2025-12-25",
+        "Lifetime (days)": "20"
+      },
+      {
+        "Project": "Ops v1",
+        "State": "completed",
+        "Created": "2025-09-24",
+        "Updated": "2025-12-12",
+        "Closed": "2025-12-12",
+        "Lifetime (days)": "79"
+      },
+      {
+        "Project": "Contract Review Platfo",
+        "State": "backlog",
+        "Created": "2025-09-01",
+        "Updated": "2026-01-21",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "Engagement Score Track",
+        "State": "backlog",
+        "Created": "2025-08-01",
+        "Updated": "2026-01-21",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "Candidate Experience a",
+        "State": "backlog",
+        "Created": "2025-07-22",
+        "Updated": "2025-12-05",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "Follow ups on candidat",
+        "State": "backlog",
+        "Created": "2025-05-06",
+        "Updated": "2026-01-21",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "Widgets to capture tra",
+        "State": "backlog",
+        "Created": "2025-05-06",
+        "Updated": "2026-03-01",
+        "Closed": "—",
+        "Lifetime (days)": "—"
+      },
+      {
+        "Project": "Automated Inbound (Wha",
+        "State": "completed",
+        "Created": "2025-05-06",
+        "Updated": "2026-01-07",
+        "Closed": "2026-01-07",
+        "Lifetime (days)": "246"
+      }
+    ],
+    "averageLifetimeDays": 63,
+    "buckets": [
+      {
+        "Month": "May 2025",
+        "Created": "3",
+        "Closed": "0",
+        "Cumul. created": "3",
+        "Cumul. closed": "0"
+      },
+      {
+        "Month": "Jul 2025",
+        "Created": "1",
+        "Closed": "0",
+        "Cumul. created": "4",
+        "Cumul. closed": "0"
+      },
+      {
+        "Month": "Aug 2025",
+        "Created": "1",
+        "Closed": "0",
+        "Cumul. created": "5",
+        "Cumul. closed": "0"
+      },
+      {
+        "Month": "Sep 2025",
+        "Created": "2",
+        "Closed": "0",
+        "Cumul. created": "7",
+        "Cumul. closed": "0"
+      },
+      {
+        "Month": "Dec 2025",
+        "Created": "10",
+        "Closed": "2",
+        "Cumul. created": "17",
+        "Cumul. closed": "2"
+      },
+      {
+        "Month": "Jan 2026",
+        "Created": "8",
+        "Closed": "3",
+        "Cumul. created": "25",
+        "Cumul. closed": "5"
+      },
+      {
+        "Month": "Feb 2026",
+        "Created": "9",
+        "Closed": "3",
+        "Cumul. created": "34",
+        "Cumul. closed": "8"
+      },
+      {
+        "Month": "Mar 2026",
+        "Created": "0",
+        "Closed": "1",
+        "Cumul. created": "34",
+        "Cumul. closed": "9"
+      }
+    ]
+  },
+  "unified": [
+    {
+      "ProjectId": "1be260fe-b79d-412e-bd36-c43ab692d95b",
+      "Project": "Lead Magnet: Resume Builder",
+      "State": "Now",
+      "Risk": "On track",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2026-02-28",
+      "Now for (days)": "2",
+      "Created": "2025-12-05",
+      "Lifetime (days)": "88",
+      "Issues": "12",
+      "% done": "17%",
+      "Last activity": "2026-02-28",
+      "Days left": "31",
+      "Target": "2026-04-04"
+    },
+    {
+      "ProjectId": "e5ebff00-78c5-4255-b142-3acc3ffe4954",
+      "Project": "IT Tasks",
+      "State": "Now",
+      "Risk": "On track",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2025-12-05",
+      "Now for (days)": "87",
+      "Created": "2025-12-05",
+      "Lifetime (days)": "88",
+      "Issues": "9",
+      "% done": "44%",
+      "Last activity": "2026-02-28",
+      "Days left": "281",
+      "Target": "2026-12-10"
+    },
+    {
+      "ProjectId": "04e985f8-9064-4df0-beeb-1d766407d2a6",
+      "Project": "Screening App v1 (Design Partner Program)",
+      "State": "Now",
+      "Risk": "At risk",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2026-01-19",
+      "Now for (days)": "42",
+      "Created": "2026-01-19",
+      "Lifetime (days)": "42",
+      "Issues": "10",
+      "% done": "30%",
+      "Last activity": "2026-02-28",
+      "Days left": "27",
+      "Target": "2026-03-31"
+    },
+    {
+      "ProjectId": "cb2411b9-dfb1-4d23-949d-d116d23e529f",
+      "Project": "1st massive campaign: 9k nurses",
+      "State": "Now",
+      "Risk": "On track",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2026-01-19",
+      "Now for (days)": "42",
+      "Created": "2026-01-19",
+      "Lifetime (days)": "42",
+      "Issues": "11",
+      "% done": "55%",
+      "Last activity": "2026-03-02",
+      "Days left": "27",
+      "Target": "2026-03-31"
+    },
+    {
+      "ProjectId": "4d59a1cf-ab80-4c4c-b287-7941e3f31a69",
+      "Project": "WA Agent v3: Map real use cases and persist sessions",
+      "State": "Now",
+      "Risk": "At risk",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2026-02-24",
+      "Now for (days)": "6",
+      "Created": "2026-02-19",
+      "Lifetime (days)": "11",
+      "Issues": "11",
+      "% done": "0%",
+      "Last activity": "2026-03-02",
+      "Days left": "27",
+      "Target": "2026-03-31"
+    },
+    {
+      "ProjectId": "4cdc1c5e-9e9a-4b1d-a876-3c72aed328a3",
+      "Project": "Landing: Referidos",
+      "State": "Now",
+      "Risk": "On track",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2026-02-28",
+      "Now for (days)": "2",
+      "Created": "2026-02-28",
+      "Lifetime (days)": "3",
+      "Issues": "4",
+      "% done": "50%",
+      "Last activity": "2026-02-28",
+      "Days left": "9",
+      "Target": "2026-03-13"
+    },
+    {
+      "ProjectId": "ad4f1548-3eea-4388-a22a-a6ea422dc670",
+      "Project": "Landing: AFX",
+      "State": "Now",
+      "Risk": "On track",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2026-02-28",
+      "Now for (days)": "2",
+      "Created": "2026-02-28",
+      "Lifetime (days)": "3",
+      "Issues": "5",
+      "% done": "40%",
+      "Last activity": "2026-02-28",
+      "Days left": "9",
+      "Target": "2026-03-13"
+    },
+    {
+      "ProjectId": "5d5ce54e-5cef-4e0e-95d6-350c2a6873ee",
+      "Project": "Blog content",
+      "State": "Next",
+      "Risk": "—",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2025-12-09",
+      "Now for (days)": "—",
+      "Created": "2025-12-09",
+      "Lifetime (days)": "83",
+      "Issues": "—",
+      "% done": "—",
+      "Last activity": "2026-03-02",
+      "Days left": "27",
+      "Target": "2026-03-31"
+    },
+    {
+      "ProjectId": "dea40108-1228-41c3-9eaf-9a2a31b31c65",
+      "Project": "Dashboards v1",
+      "State": "Next",
+      "Risk": "On track",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2025-12-10",
+      "Now for (days)": "—",
+      "Created": "2025-12-10",
+      "Lifetime (days)": "82",
+      "Issues": "8",
+      "% done": "75%",
+      "Last activity": "2026-01-13",
+      "Days left": "27",
+      "Target": "2026-03-31"
+    },
+    {
+      "ProjectId": "035db773-2406-4ad4-ab22-3ef2cbb87e4f",
+      "Project": "Job Aggregator",
+      "State": "Next",
+      "Risk": "—",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2026-01-19",
+      "Now for (days)": "—",
+      "Created": "2026-01-19",
+      "Lifetime (days)": "42",
+      "Issues": "—",
+      "% done": "—",
+      "Last activity": "2026-03-02",
+      "Days left": "27",
+      "Target": "2026-03-31"
+    },
+    {
+      "ProjectId": "5fa2df78-1a44-4e56-8110-9a04f3230282",
+      "Project": "Candidate Tracker v1",
+      "State": "Next",
+      "Risk": "—",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2026-01-19",
+      "Now for (days)": "—",
+      "Created": "2026-01-19",
+      "Lifetime (days)": "42",
+      "Issues": "—",
+      "% done": "—",
+      "Last activity": "2026-03-02",
+      "Days left": "27",
+      "Target": "2026-03-31"
+    },
+    {
+      "ProjectId": "ab6fb2b4-c7fc-4b5a-88f4-f589bd0a7365",
+      "Project": "Knowledge Base",
+      "State": "Next",
+      "Risk": "—",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2026-01-19",
+      "Now for (days)": "—",
+      "Created": "2026-01-19",
+      "Lifetime (days)": "42",
+      "Issues": "—",
+      "% done": "—",
+      "Last activity": "2026-03-02",
+      "Days left": "27",
+      "Target": "2026-03-31"
+    },
+    {
+      "ProjectId": "530d3a15-6228-4aca-a276-cb9ebeaf20ab",
+      "Project": "Automate OCC Inbound",
+      "State": "Next",
+      "Risk": "—",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2026-01-19",
+      "Now for (days)": "—",
+      "Created": "2026-01-19",
+      "Lifetime (days)": "42",
+      "Issues": "—",
+      "% done": "—",
+      "Last activity": "2026-03-02",
+      "Days left": "40",
+      "Target": "2026-04-13"
+    },
+    {
+      "ProjectId": "7144f70b-ff6c-46f9-8aca-7bac54fb2e2a",
+      "Project": "Lead magnet: Readiness Quiz",
+      "State": "Next",
+      "Risk": "On track",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2026-02-28",
+      "Now for (days)": "—",
+      "Created": "2026-02-24",
+      "Lifetime (days)": "6",
+      "Issues": "6",
+      "% done": "17%",
+      "Last activity": "2026-02-28",
+      "Days left": "57",
+      "Target": "2026-04-30"
+    },
+    {
+      "ProjectId": "78c73e1a-9443-412c-b3ef-8e51d8d920d7",
+      "Project": "Automate OCC Outbound",
+      "State": "Next",
+      "Risk": "—",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2026-02-28",
+      "Now for (days)": "—",
+      "Created": "2026-02-28",
+      "Lifetime (days)": "3",
+      "Issues": "—",
+      "% done": "—",
+      "Last activity": "2026-03-02",
+      "Days left": "27",
+      "Target": "2026-03-31"
+    },
+    {
+      "ProjectId": "91398079-0251-4d54-a7ba-7cab177bd7ba",
+      "Project": "Data Enrichment: OCR and extraction for Résumés (PDF and DOCX)",
+      "State": "Next",
+      "Risk": "—",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2026-02-28",
+      "Now for (days)": "—",
+      "Created": "2026-02-28",
+      "Lifetime (days)": "3",
+      "Issues": "—",
+      "% done": "—",
+      "Last activity": "2026-03-02",
+      "Days left": "27",
+      "Target": "2026-03-31"
+    },
+    {
+      "ProjectId": "5b3a24e9-b5ba-4bc9-b58d-c06de1305349",
+      "Project": "Widgets to capture traffic from the Website",
+      "State": "Later",
+      "Risk": "At risk",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2025-05-06",
+      "Now for (days)": "—",
+      "Created": "2025-05-06",
+      "Lifetime (days)": "301",
+      "Issues": "9",
+      "% done": "22%",
+      "Last activity": "2025-12-05",
+      "Days left": "88",
+      "Target": "2026-05-31"
+    },
+    {
+      "ProjectId": "02925489-b480-4335-acb4-f36db21980ed",
+      "Project": "Follow ups on candidate engagement",
+      "State": "Later",
+      "Risk": "At risk",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2025-05-06",
+      "Now for (days)": "—",
+      "Created": "2025-05-06",
+      "Lifetime (days)": "301",
+      "Issues": "12",
+      "% done": "8%",
+      "Last activity": "2025-05-06",
+      "Days left": "118",
+      "Target": "2026-06-30"
+    },
+    {
+      "ProjectId": "117bdc5a-ee65-43a6-a373-16487cefb640",
+      "Project": "Candidate Experience and follow-ups",
+      "State": "Later",
+      "Risk": "On track",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2025-07-22",
+      "Now for (days)": "—",
+      "Created": "2025-07-22",
+      "Lifetime (days)": "223",
+      "Issues": "1",
+      "% done": "0%",
+      "Last activity": "2025-07-23",
+      "Days left": "118",
+      "Target": "2026-06-30"
+    },
+    {
+      "ProjectId": "4bf9a24c-e06b-4598-ba0d-cf403d341934",
+      "Project": "Engagement Score Tracking",
+      "State": "Later",
+      "Risk": "On track",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2025-08-01",
+      "Now for (days)": "—",
+      "Created": "2025-08-01",
+      "Lifetime (days)": "213",
+      "Issues": "10",
+      "% done": "70%",
+      "Last activity": "2026-02-03",
+      "Days left": "118",
+      "Target": "2026-06-30"
+    },
+    {
+      "ProjectId": "d551fc66-102a-48aa-91b9-6dcb27f01bdb",
+      "Project": "Contract Review Platform",
+      "State": "Later",
+      "Risk": "On track",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2025-09-01",
+      "Now for (days)": "—",
+      "Created": "2025-09-01",
+      "Lifetime (days)": "182",
+      "Issues": "5",
+      "% done": "60%",
+      "Last activity": "2026-02-03",
+      "Days left": "118",
+      "Target": "2026-06-30"
+    },
+    {
+      "ProjectId": "60f69f12-a0f3-4619-8a6e-ed3fee39b989",
+      "Project": "SEO Competitor analysis",
+      "State": "Later",
+      "Risk": "—",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2025-12-09",
+      "Now for (days)": "—",
+      "Created": "2025-12-09",
+      "Lifetime (days)": "83",
+      "Issues": "—",
+      "% done": "—",
+      "Last activity": "2026-02-28",
+      "Days left": "57",
+      "Target": "2026-04-30"
+    },
+    {
+      "ProjectId": "fdf34f10-b8cf-4da2-9918-92eb49120398",
+      "Project": "Inbox Improvements",
+      "State": "Later",
+      "Risk": "At risk",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2025-12-10",
+      "Now for (days)": "—",
+      "Created": "2025-12-10",
+      "Lifetime (days)": "82",
+      "Issues": "3",
+      "% done": "0%",
+      "Last activity": "2026-01-26",
+      "Days left": "57",
+      "Target": "2026-04-30"
+    },
+    {
+      "ProjectId": "4ceb0eea-9c18-4efc-8a61-d5dc7358b431",
+      "Project": "Evals",
+      "State": "Later",
+      "Risk": "At risk",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2026-02-11",
+      "Now for (days)": "—",
+      "Created": "2026-02-11",
+      "Lifetime (days)": "19",
+      "Issues": "3",
+      "% done": "0%",
+      "Last activity": "2026-02-23",
+      "Days left": "57",
+      "Target": "2026-04-30"
+    },
+    {
+      "ProjectId": "2e5c2a82-a4ad-4e8e-b540-3dfc860aae04",
+      "Project": "OpenClaw",
+      "State": "Later",
+      "Risk": "—",
+      "Closed": "—",
+      "Closed month": "—",
+      "Started": "2026-02-28",
+      "Now for (days)": "—",
+      "Created": "2026-02-28",
+      "Lifetime (days)": "3",
+      "Issues": "—",
+      "% done": "—",
+      "Last activity": "2026-02-28",
+      "Days left": "57",
+      "Target": "2026-04-30"
+    },
+    {
+      "ProjectId": "9d1faf2b-ff0a-4855-8d6c-16c4b7b5e38b",
+      "Project": "Automated Inbound (WhatsApp Integration)",
+      "State": "Completed",
+      "Risk": "—",
+      "Closed": "2026-01-07",
+      "Closed month": "2026-01",
+      "Started": "2025-08-04",
+      "Now for (days)": "—",
+      "Created": "2025-05-06",
+      "Lifetime (days)": "246",
+      "Issues": "—",
+      "% done": "—",
+      "Last activity": "2026-01-07",
+      "Days left": "-194",
+      "Target": "2025-08-22"
+    },
+    {
+      "ProjectId": "86da0b6b-0763-42a1-a300-dd9b8ea3911d",
+      "Project": "Ops v1",
+      "State": "Completed",
+      "Risk": "—",
+      "Closed": "2025-12-12",
+      "Closed month": "2025-12",
+      "Started": "2025-12-05",
+      "Now for (days)": "—",
+      "Created": "2025-09-24",
+      "Lifetime (days)": "79",
+      "Issues": "—",
+      "% done": "—",
+      "Last activity": "2025-12-12",
+      "Days left": "-82",
+      "Target": "2025-12-12"
+    },
+    {
+      "ProjectId": "a0715914-d1b4-431b-90b1-0801626bccdc",
+      "Project": "Experiment: Mexican Job Board and Opportunities",
+      "State": "Completed",
+      "Risk": "—",
+      "Closed": "2025-12-25",
+      "Closed month": "2025-12",
+      "Started": "2025-12-05",
+      "Now for (days)": "—",
+      "Created": "2025-12-05",
+      "Lifetime (days)": "20",
+      "Issues": "—",
+      "% done": "—",
+      "Last activity": "2025-12-25",
+      "Days left": "-74",
+      "Target": "2025-12-20"
+    },
+    {
+      "ProjectId": "b1210028-c5a9-4a84-af9f-a92f0d1ba7aa",
+      "Project": "Automated Screening v1 (B2B - ABC Offering)",
+      "State": "Completed",
+      "Risk": "—",
+      "Closed": "2026-01-12",
+      "Closed month": "2026-01",
+      "Started": "2025-12-05",
+      "Now for (days)": "—",
+      "Created": "2025-12-05",
+      "Lifetime (days)": "38",
+      "Issues": "—",
+      "% done": "—",
+      "Last activity": "2026-01-12",
+      "Days left": "-82",
+      "Target": "2025-12-12"
+    },
+    {
+      "ProjectId": "d0efb56c-17f2-4257-a283-26b37b25ecd1",
+      "Project": "Acquisition Engine v1: Scrap candidates from public mexican job boards",
+      "State": "Completed",
+      "Risk": "—",
+      "Closed": "2026-01-12",
+      "Closed month": "2026-01",
+      "Started": "2025-12-09",
+      "Now for (days)": "—",
+      "Created": "2025-12-05",
+      "Lifetime (days)": "38",
+      "Issues": "—",
+      "% done": "—",
+      "Last activity": "2026-01-12",
+      "Days left": "-65",
+      "Target": "2025-12-29"
+    },
+    {
+      "ProjectId": "58697c2f-c4fa-4a8d-ac9e-59103cf2258f",
+      "Project": "Agentic Infrastructure foundations",
+      "State": "Completed",
+      "Risk": "—",
+      "Closed": "2026-02-23",
+      "Closed month": "2026-02",
+      "Started": "2026-01-12",
+      "Now for (days)": "—",
+      "Created": "2025-12-22",
+      "Lifetime (days)": "63",
+      "Issues": "—",
+      "% done": "—",
+      "Last activity": "2026-02-28",
+      "Days left": "-33",
+      "Target": "2026-01-30"
+    },
+    {
+      "ProjectId": "95f177df-37c3-4d16-86c3-9132b51f0438",
+      "Project": "WA Agent v1: Outbound Campaigns",
+      "State": "Completed",
+      "Risk": "—",
+      "Closed": "2026-02-23",
+      "Closed month": "2026-02",
+      "Started": "2026-01-19",
+      "Now for (days)": "—",
+      "Created": "2026-01-19",
+      "Lifetime (days)": "35",
+      "Issues": "—",
+      "% done": "—",
+      "Last activity": "2026-02-28",
+      "Days left": "-33",
+      "Target": "2026-01-30"
+    },
+    {
+      "ProjectId": "602a0c06-7534-4e0f-804c-74fef470e7ea",
+      "Project": "Rewarded Interviews",
+      "State": "Completed",
+      "Risk": "—",
+      "Closed": "2026-03-02",
+      "Closed month": "2026-03",
+      "Started": "2026-01-30",
+      "Now for (days)": "—",
+      "Created": "2026-01-30",
+      "Lifetime (days)": "31",
+      "Issues": "—",
+      "% done": "—",
+      "Last activity": "2026-03-02",
+      "Days left": "-21",
+      "Target": "2026-02-11"
+    },
+    {
+      "ProjectId": "04ec2e3d-d42e-4933-9230-cadb06ca1f58",
+      "Project": "WA Agent v2: Outbound follow-up with CSW (24 hs)",
+      "State": "Completed",
+      "Risk": "—",
+      "Closed": "2026-02-24",
+      "Closed month": "2026-02",
+      "Started": "2026-02-10",
+      "Now for (days)": "—",
+      "Created": "2026-02-09",
+      "Lifetime (days)": "15",
+      "Issues": "—",
+      "% done": "—",
+      "Last activity": "2026-02-28",
+      "Days left": "-19",
+      "Target": "2026-02-13"
+    }
+  ],
+  "metricsHealth": [
+    {
+      "Health": "On track",
+      "Project": "Landing: AFX",
+      "Total": "5",
+      "Open": "1",
+      "In prog.": "2",
+      "Done": "2",
+      "%": "40%",
+      "Stale": "0",
+      "Blocked": "0",
+      "Last activity": "2026-02-28",
+      "Days left": "9"
+    },
+    {
+      "Health": "On track",
+      "Project": "Landing: Referidos",
+      "Total": "4",
+      "Open": "1",
+      "In prog.": "1",
+      "Done": "2",
+      "%": "50%",
+      "Stale": "0",
+      "Blocked": "0",
+      "Last activity": "2026-02-28",
+      "Days left": "9"
+    },
+    {
+      "Health": "On track",
+      "Project": "1st massive campaign",
+      "Total": "11",
+      "Open": "5",
+      "In prog.": "0",
+      "Done": "6",
+      "%": "55%",
+      "Stale": "0",
+      "Blocked": "0",
+      "Last activity": "2026-03-02",
+      "Days left": "27"
+    },
+    {
+      "Health": "On track",
+      "Project": "IT Tasks",
+      "Total": "9",
+      "Open": "5",
+      "In prog.": "0",
+      "Done": "4",
+      "%": "44%",
+      "Stale": "3",
+      "Blocked": "0",
+      "Last activity": "2026-02-28",
+      "Days left": "281"
+    },
+    {
+      "Health": "On track",
+      "Project": "Lead Magnet: Resume ",
+      "Total": "12",
+      "Open": "8",
+      "In prog.": "2",
+      "Done": "2",
+      "%": "17%",
+      "Stale": "0",
+      "Blocked": "0",
+      "Last activity": "2026-02-28",
+      "Days left": "31"
+    },
+    {
+      "Health": "On track",
+      "Project": "Data Enrichment: OCR",
+      "Total": "0",
+      "Open": "0",
+      "In prog.": "0",
+      "Done": "0",
+      "%": "0%",
+      "Stale": "0",
+      "Blocked": "0",
+      "Last activity": "—",
+      "Days left": "27"
+    },
+    {
+      "Health": "On track",
+      "Project": "Automate OCC Outboun",
+      "Total": "0",
+      "Open": "0",
+      "In prog.": "0",
+      "Done": "0",
+      "%": "0%",
+      "Stale": "0",
+      "Blocked": "0",
+      "Last activity": "—",
+      "Days left": "27"
+    },
+    {
+      "Health": "On track",
+      "Project": "Lead magnet: Readine",
+      "Total": "6",
+      "Open": "5",
+      "In prog.": "0",
+      "Done": "1",
+      "%": "17%",
+      "Stale": "0",
+      "Blocked": "0",
+      "Last activity": "2026-02-28",
+      "Days left": "57"
+    },
+    {
+      "Health": "On track",
+      "Project": "Automate OCC Inbound",
+      "Total": "0",
+      "Open": "0",
+      "In prog.": "0",
+      "Done": "0",
+      "%": "0%",
+      "Stale": "0",
+      "Blocked": "0",
+      "Last activity": "—",
+      "Days left": "40"
+    },
+    {
+      "Health": "On track",
+      "Project": "Knowledge Base",
+      "Total": "0",
+      "Open": "0",
+      "In prog.": "0",
+      "Done": "0",
+      "%": "0%",
+      "Stale": "0",
+      "Blocked": "0",
+      "Last activity": "—",
+      "Days left": "27"
+    },
+    {
+      "Health": "On track",
+      "Project": "Candidate Tracker v1",
+      "Total": "0",
+      "Open": "0",
+      "In prog.": "0",
+      "Done": "0",
+      "%": "0%",
+      "Stale": "0",
+      "Blocked": "0",
+      "Last activity": "—",
+      "Days left": "27"
+    },
+    {
+      "Health": "On track",
+      "Project": "Job Aggregator",
+      "Total": "0",
+      "Open": "0",
+      "In prog.": "0",
+      "Done": "0",
+      "%": "0%",
+      "Stale": "0",
+      "Blocked": "0",
+      "Last activity": "—",
+      "Days left": "27"
+    },
+    {
+      "Health": "On track",
+      "Project": "Dashboards v1",
+      "Total": "8",
+      "Open": "1",
+      "In prog.": "1",
+      "Done": "6",
+      "%": "75%",
+      "Stale": "2",
+      "Blocked": "0",
+      "Last activity": "2026-01-13",
+      "Days left": "27"
+    },
+    {
+      "Health": "On track",
+      "Project": "Blog content",
+      "Total": "0",
+      "Open": "0",
+      "In prog.": "0",
+      "Done": "0",
+      "%": "0%",
+      "Stale": "0",
+      "Blocked": "0",
+      "Last activity": "—",
+      "Days left": "27"
+    },
+    {
+      "Health": "On track",
+      "Project": "Contract Review Plat",
+      "Total": "5",
+      "Open": "0",
+      "In prog.": "2",
+      "Done": "3",
+      "%": "60%",
+      "Stale": "2",
+      "Blocked": "0",
+      "Last activity": "2026-02-03",
+      "Days left": "118"
+    },
+    {
+      "Health": "On track",
+      "Project": "Engagement Score Tra",
+      "Total": "10",
+      "Open": "3",
+      "In prog.": "0",
+      "Done": "7",
+      "%": "70%",
+      "Stale": "3",
+      "Blocked": "0",
+      "Last activity": "2026-02-03",
+      "Days left": "118"
+    },
+    {
+      "Health": "On track",
+      "Project": "Candidate Experience",
+      "Total": "1",
+      "Open": "1",
+      "In prog.": "0",
+      "Done": "0",
+      "%": "0%",
+      "Stale": "1",
+      "Blocked": "0",
+      "Last activity": "2025-07-23",
+      "Days left": "118"
+    },
+    {
+      "Health": "At risk",
+      "Project": "WA Agent v3: Map rea",
+      "Total": "11",
+      "Open": "6",
+      "In prog.": "5",
+      "Done": "0",
+      "%": "0%",
+      "Stale": "0",
+      "Blocked": "0",
+      "Last activity": "2026-03-02",
+      "Days left": "27"
+    },
+    {
+      "Health": "At risk",
+      "Project": "Screening App v1 (De",
+      "Total": "10",
+      "Open": "4",
+      "In prog.": "3",
+      "Done": "3",
+      "%": "30%",
+      "Stale": "0",
+      "Blocked": "0",
+      "Last activity": "2026-02-28",
+      "Days left": "27"
+    },
+    {
+      "Health": "At risk",
+      "Project": "Evals",
+      "Total": "3",
+      "Open": "2",
+      "In prog.": "1",
+      "Done": "0",
+      "%": "0%",
+      "Stale": "0",
+      "Blocked": "0",
+      "Last activity": "2026-02-23",
+      "Days left": "57"
+    },
+    {
+      "Health": "At risk",
+      "Project": "Inbox Improvements",
+      "Total": "3",
+      "Open": "1",
+      "In prog.": "2",
+      "Done": "0",
+      "%": "0%",
+      "Stale": "2",
+      "Blocked": "0",
+      "Last activity": "2026-01-26",
+      "Days left": "57"
+    },
+    {
+      "Health": "At risk",
+      "Project": "SEO Competitor analy",
+      "Total": "0",
+      "Open": "0",
+      "In prog.": "0",
+      "Done": "0",
+      "%": "0%",
+      "Stale": "0",
+      "Blocked": "0",
+      "Last activity": "—",
+      "Days left": "57"
+    },
+    {
+      "Health": "At risk",
+      "Project": "Follow ups on candid",
+      "Total": "12",
+      "Open": "11",
+      "In prog.": "0",
+      "Done": "1",
+      "%": "8%",
+      "Stale": "11",
+      "Blocked": "0",
+      "Last activity": "2025-05-06",
+      "Days left": "118"
+    },
+    {
+      "Health": "At risk",
+      "Project": "Widgets to capture t",
+      "Total": "9",
+      "Open": "7",
+      "In prog.": "0",
+      "Done": "2",
+      "%": "22%",
+      "Stale": "7",
+      "Blocked": "0",
+      "Last activity": "2025-12-05",
+      "Days left": "88"
+    },
+    {
+      "Health": "—",
+      "Project": "OpenClaw",
+      "Total": "0",
+      "Open": "0",
+      "In prog.": "0",
+      "Done": "0",
+      "%": "0%",
+      "Stale": "0",
+      "Blocked": "0",
+      "Last activity": "—",
+      "Days left": "57"
+    }
+  ],
+  "objectivesOverSixWeeks": [
+    {
+      "Project": "Follow ups on candidate enga",
+      "State": "backlog",
+      "Days running": "301",
+      "Started": "2025-05-06"
+    },
+    {
+      "Project": "Widgets to capture traffic f",
+      "State": "backlog",
+      "Days running": "301",
+      "Started": "2025-05-06"
+    },
+    {
+      "Project": "Candidate Experience and fol",
+      "State": "backlog",
+      "Days running": "223",
+      "Started": "2025-07-22"
+    },
+    {
+      "Project": "Engagement Score Tracking",
+      "State": "backlog",
+      "Days running": "213",
+      "Started": "2025-08-01"
+    },
+    {
+      "Project": "Contract Review Platform",
+      "State": "backlog",
+      "Days running": "182",
+      "Started": "2025-09-01"
+    },
+    {
+      "Project": "IT Tasks",
+      "State": "started",
+      "Days running": "88",
+      "Started": "2025-12-05"
+    },
+    {
+      "Project": "Blog content",
+      "State": "planned",
+      "Days running": "83",
+      "Started": "2025-12-09"
+    },
+    {
+      "Project": "SEO Competitor analysis",
+      "State": "backlog",
+      "Days running": "83",
+      "Started": "2025-12-09"
+    },
+    {
+      "Project": "Dashboards v1",
+      "State": "planned",
+      "Days running": "82",
+      "Started": "2025-12-10"
+    },
+    {
+      "Project": "Inbox Improvements",
+      "State": "backlog",
+      "Days running": "82",
+      "Started": "2025-12-10"
+    },
+    {
+      "Project": "1st massive campaign: 9k nur",
+      "State": "started",
+      "Days running": "42",
+      "Started": "2026-01-19"
+    },
+    {
+      "Project": "Screening App v1 (Design Par",
+      "State": "started",
+      "Days running": "42",
+      "Started": "2026-01-19"
+    },
+    {
+      "Project": "Automate OCC Inbound",
+      "State": "planned",
+      "Days running": "42",
+      "Started": "2026-01-19"
+    },
+    {
+      "Project": "Knowledge Base",
+      "State": "planned",
+      "Days running": "42",
+      "Started": "2026-01-19"
+    },
+    {
+      "Project": "Candidate Tracker v1",
+      "State": "planned",
+      "Days running": "42",
+      "Started": "2026-01-19"
+    },
+    {
+      "Project": "Job Aggregator",
+      "State": "planned",
+      "Days running": "42",
+      "Started": "2026-01-19"
+    }
+  ],
+  "staleIssues": [
+    {
+      "Project": "Follow ups on candidate engagement",
+      "Issue": "Automate english eval",
+      "Days since update": "301",
+      "Last update": "2025-05-06"
+    },
+    {
+      "Project": "Follow ups on candidate engagement",
+      "Issue": "Generate transcripts from calls",
+      "Days since update": "301",
+      "Last update": "2025-05-06"
+    },
+    {
+      "Project": "Follow ups on candidate engagement",
+      "Issue": "Integrate Kaplan/UWorld metrics with candidates data and reporting",
+      "Days since update": "301",
+      "Last update": "2025-05-06"
+    },
+    {
+      "Project": "Follow ups on candidate engagement",
+      "Issue": "Show WA conversations in the CRM",
+      "Days since update": "301",
+      "Last update": "2025-05-06"
+    },
+    {
+      "Project": "Follow ups on candidate engagement",
+      "Issue": "Assign new leads with Round Robin to CX team",
+      "Days since update": "301",
+      "Last update": "2025-05-06"
+    },
+    {
+      "Project": "Follow ups on candidate engagement",
+      "Issue": "Ability to setup checkpoints with the candidate",
+      "Days since update": "301",
+      "Last update": "2025-05-06"
+    },
+    {
+      "Project": "Follow ups on candidate engagement",
+      "Issue": "Automated message through WA every week",
+      "Days since update": "301",
+      "Last update": "2025-05-06"
+    },
+    {
+      "Project": "Follow ups on candidate engagement",
+      "Issue": "Send follow up message after 1st call if candidate has been pre-qualified",
+      "Days since update": "301",
+      "Last update": "2025-05-06"
+    },
+    {
+      "Project": "Follow ups on candidate engagement",
+      "Issue": "Send candidates reminder of 1st call",
+      "Days since update": "301",
+      "Last update": "2025-05-06"
+    },
+    {
+      "Project": "Follow ups on candidate engagement",
+      "Issue": "Allow candidates to schedule 1st call",
+      "Days since update": "301",
+      "Last update": "2025-05-06"
+    },
+    {
+      "Project": "Follow ups on candidate engagement",
+      "Issue": "When candidate is moved up to the queue send Agreement automatically",
+      "Days since update": "301",
+      "Last update": "2025-05-06"
+    },
+    {
+      "Project": "Widgets to capture traffic from the Website",
+      "Issue": "Generate content for Blog posts (pSEO)",
+      "Days since update": "256",
+      "Last update": "2025-06-19"
+    },
+    {
+      "Project": "Widgets to capture traffic from the Website",
+      "Issue": "Redirect US visitors to /for-providers page",
+      "Days since update": "256",
+      "Last update": "2025-06-19"
+    },
+    {
+      "Project": "Candidate Experience and follow-ups",
+      "Issue": "Implement a global NPS for tracking candidate engagement",
+      "Days since update": "223",
+      "Last update": "2025-07-23"
+    },
+    {
+      "Project": "IT Tasks",
+      "Issue": "Company Assets: Lucas",
+      "Days since update": "88",
+      "Last update": "2025-12-05"
+    },
+    {
+      "Project": "IT Tasks",
+      "Issue": "Company Assets: Esme",
+      "Days since update": "88",
+      "Last update": "2025-12-05"
+    },
+    {
+      "Project": "IT Tasks",
+      "Issue": "Review Tech Expenses",
+      "Days since update": "88",
+      "Last update": "2025-12-05"
+    },
+    {
+      "Project": "Contract Review Platform",
+      "Issue": "Implementación firma de contratos con DocuSeal en plataforma",
+      "Days since update": "88",
+      "Last update": "2025-12-05"
+    },
+    {
+      "Project": "Contract Review Platform",
+      "Issue": "Accesos DocuSeal",
+      "Days since update": "88",
+      "Last update": "2025-12-05"
+    },
+    {
+      "Project": "Engagement Score Tracking",
+      "Issue": "Engagement v3: Integración del LMS con follow-ups",
+      "Days since update": "88",
+      "Last update": "2025-12-05"
+    },
+    {
+      "Project": "Engagement Score Tracking",
+      "Issue": "Engagement v2: Integración con cal.com para hacer trigger de follow-ups",
+      "Days since update": "88",
+      "Last update": "2025-12-05"
+    },
+    {
+      "Project": "Engagement Score Tracking",
+      "Issue": "Discovery: Armar documento de propuesta de Modalidades dentro del programa de Mora",
+      "Days since update": "88",
+      "Last update": "2025-12-05"
+    },
+    {
+      "Project": "Widgets to capture traffic from the Website",
+      "Issue": "Add WhatsApp entrypoint to the Website",
+      "Days since update": "88",
+      "Last update": "2025-12-05"
+    },
+    {
+      "Project": "Widgets to capture traffic from the Website",
+      "Issue": "FAQs Page",
+      "Days since update": "88",
+      "Last update": "2025-12-05"
+    },
+    {
+      "Project": "Widgets to capture traffic from the Website",
+      "Issue": "About us page",
+      "Days since update": "88",
+      "Last update": "2025-12-05"
+    },
+    {
+      "Project": "Widgets to capture traffic from the Website",
+      "Issue": "Comunidad Mora",
+      "Days since update": "88",
+      "Last update": "2025-12-05"
+    },
+    {
+      "Project": "Widgets to capture traffic from the Website",
+      "Issue": "Setup blog using a CMS or Markdown",
+      "Days since update": "88",
+      "Last update": "2025-12-05"
+    },
+    {
+      "Project": "Dashboards v1",
+      "Issue": "Reportes del CRM (converted to project)",
+      "Days since update": "82",
+      "Last update": "2025-12-11"
+    },
+    {
+      "Project": "Inbox Improvements",
+      "Issue": "Flujos dinámicos con LLMs para mensajes de Inbound Chat",
+      "Days since update": "54",
+      "Last update": "2026-01-08"
+    },
+    {
+      "Project": "Dashboards v1",
+      "Issue": "Asignar conversación a la persona que está asignada en el CRM",
+      "Days since update": "48",
+      "Last update": "2026-01-13"
+    },
+    {
+      "Project": "Inbox Improvements",
+      "Issue": "Integración con WA Cloud API",
+      "Days since update": "46",
+      "Last update": "2026-01-15"
+    }
+  ],
+  "velocity": {
+    "buckets": [
+      {
+        "month": "2025-05",
+        "created": 3,
+        "closed": 0
+      },
+      {
+        "month": "2025-07",
+        "created": 1,
+        "closed": 0
+      },
+      {
+        "month": "2025-08",
+        "created": 1,
+        "closed": 0
+      },
+      {
+        "month": "2025-09",
+        "created": 2,
+        "closed": 0
+      },
+      {
+        "month": "2025-12",
+        "created": 10,
+        "closed": 2
+      },
+      {
+        "month": "2026-01",
+        "created": 8,
+        "closed": 3
+      },
+      {
+        "month": "2026-02",
+        "created": 9,
+        "closed": 3
+      },
+      {
+        "month": "2026-03",
+        "created": 0,
+        "closed": 1
+      }
+    ],
+    "trend": "accelerating",
+    "trendRecentTotal": 6,
+    "trendPreviousTotal": 2,
+    "monthLabels": [
+      "May 2025",
+      "Jul 2025",
+      "Aug 2025",
+      "Sep 2025",
+      "Dec 2025",
+      "Jan 2026",
+      "Feb 2026",
+      "Mar 2026"
+    ]
+  },
+  "velocityWeekly": {
+    "buckets": [
+      {
+        "week": "2025-W20",
+        "created": 3,
+        "closed": 0
+      },
+      {
+        "week": "2025-W31",
+        "created": 1,
+        "closed": 0
+      },
+      {
+        "week": "2025-W32",
+        "created": 1,
+        "closed": 0
+      },
+      {
+        "week": "2025-W37",
+        "created": 1,
+        "closed": 0
+      },
+      {
+        "week": "2025-W40",
+        "created": 1,
+        "closed": 0
+      },
+      {
+        "week": "2025-W50",
+        "created": 5,
+        "closed": 0
+      },
+      {
+        "week": "2025-W51",
+        "created": 4,
+        "closed": 1
+      },
+      {
+        "week": "2025-W53",
+        "created": 1,
+        "closed": 1
+      },
+      {
+        "week": "2026-W02",
+        "created": 0,
+        "closed": 1
+      },
+      {
+        "week": "2026-W03",
+        "created": 0,
+        "closed": 2
+      },
+      {
+        "week": "2026-W04",
+        "created": 7,
+        "closed": 0
+      },
+      {
+        "week": "2026-W05",
+        "created": 1,
+        "closed": 0
+      },
+      {
+        "week": "2026-W07",
+        "created": 2,
+        "closed": 0
+      },
+      {
+        "week": "2026-W08",
+        "created": 1,
+        "closed": 0
+      },
+      {
+        "week": "2026-W09",
+        "created": 6,
+        "closed": 3
+      },
+      {
+        "week": "2026-W10",
+        "created": 0,
+        "closed": 1
+      }
+    ],
+    "weekLabels": [
+      "W20 2025",
+      "W31 2025",
+      "W32 2025",
+      "W37 2025",
+      "W40 2025",
+      "W50 2025",
+      "W51 2025",
+      "W53 2025",
+      "W02 2026",
+      "W03 2026",
+      "W04 2026",
+      "W05 2026",
+      "W07 2026",
+      "W08 2026",
+      "W09 2026",
+      "W10 2026"
+    ]
+  },
+  "dateSummary": [
+    {
+      "Project": "Landing: AFX",
+      "Created": "2026-02-28",
+      "Orig. start": "2026-02-28",
+      "Curr. start": "2026-02-28",
+      "Orig. target": "2026-03-13",
+      "Curr. target": "2026-03-13",
+      "# changes": "0"
+    },
+    {
+      "Project": "Landing: Referidos",
+      "Created": "2026-02-28",
+      "Orig. start": "2026-02-28",
+      "Curr. start": "2026-02-28",
+      "Orig. target": "2026-03-13",
+      "Curr. target": "2026-03-13",
+      "# changes": "0"
+    },
+    {
+      "Project": "WA Agent v3: Map real us",
+      "Created": "2026-02-19",
+      "Orig. start": "2026-01-01",
+      "Curr. start": "2026-01-01",
+      "Orig. target": "2026-03-31",
+      "Curr. target": "2026-03-31",
+      "# changes": "0"
+    },
+    {
+      "Project": "1st massive campaign: 9k",
+      "Created": "2026-01-19",
+      "Orig. start": "2026-01-19",
+      "Curr. start": "2026-01-19",
+      "Orig. target": "2026-03-31",
+      "Curr. target": "2026-03-31",
+      "# changes": "0"
+    },
+    {
+      "Project": "Screening App v1 (Design",
+      "Created": "2026-01-19",
+      "Orig. start": "2026-01-01",
+      "Curr. start": "2026-01-01",
+      "Orig. target": "2026-03-31",
+      "Curr. target": "2026-03-31",
+      "# changes": "0"
+    },
+    {
+      "Project": "IT Tasks",
+      "Created": "2025-12-05",
+      "Orig. start": "2025-12-11",
+      "Curr. start": "2025-12-11",
+      "Orig. target": "2026-12-10",
+      "Curr. target": "2026-12-10",
+      "# changes": "0"
+    },
+    {
+      "Project": "Lead Magnet: Resume Buil",
+      "Created": "2025-12-05",
+      "Orig. start": "2026-03-01",
+      "Curr. start": "2026-03-01",
+      "Orig. target": "2026-04-04",
+      "Curr. target": "2026-04-04",
+      "# changes": "0"
+    },
+    {
+      "Project": "Data Enrichment: OCR and",
+      "Created": "2026-02-28",
+      "Orig. start": "2026-03-02",
+      "Curr. start": "2026-03-02",
+      "Orig. target": "2026-03-31",
+      "Curr. target": "2026-03-31",
+      "# changes": "0"
+    },
+    {
+      "Project": "Automate OCC Outbound",
+      "Created": "2026-02-28",
+      "Orig. start": "2026-03-16",
+      "Curr. start": "2026-03-16",
+      "Orig. target": "2026-03-31",
+      "Curr. target": "2026-03-31",
+      "# changes": "0"
+    },
+    {
+      "Project": "Lead magnet: Readiness Q",
+      "Created": "2026-02-24",
+      "Orig. start": "2026-04-01",
+      "Curr. start": "2026-04-01",
+      "Orig. target": "2026-04-30",
+      "Curr. target": "2026-04-30",
+      "# changes": "0"
+    },
+    {
+      "Project": "Automate OCC Inbound",
+      "Created": "2026-01-19",
+      "Orig. start": "2026-03-30",
+      "Curr. start": "2026-03-30",
+      "Orig. target": "2026-04-13",
+      "Curr. target": "2026-04-13",
+      "# changes": "0"
+    },
+    {
+      "Project": "Knowledge Base",
+      "Created": "2026-01-19",
+      "Orig. start": "2026-03-16",
+      "Curr. start": "2026-03-16",
+      "Orig. target": "2026-03-31",
+      "Curr. target": "2026-03-31",
+      "# changes": "0"
+    },
+    {
+      "Project": "Candidate Tracker v1",
+      "Created": "2026-01-19",
+      "Orig. start": "2026-03-16",
+      "Curr. start": "2026-03-16",
+      "Orig. target": "2026-03-31",
+      "Curr. target": "2026-03-31",
+      "# changes": "0"
+    },
+    {
+      "Project": "Job Aggregator",
+      "Created": "2026-01-19",
+      "Orig. start": "2026-03-02",
+      "Curr. start": "2026-03-02",
+      "Orig. target": "2026-03-31",
+      "Curr. target": "2026-03-31",
+      "# changes": "0"
+    },
+    {
+      "Project": "Dashboards v1",
+      "Created": "2025-12-10",
+      "Orig. start": "2026-03-16",
+      "Curr. start": "2026-03-16",
+      "Orig. target": "2026-03-31",
+      "Curr. target": "2026-03-31",
+      "# changes": "0"
+    },
+    {
+      "Project": "Blog content",
+      "Created": "2025-12-09",
+      "Orig. start": "2026-03-02",
+      "Curr. start": "2026-03-02",
+      "Orig. target": "2026-03-31",
+      "Curr. target": "2026-03-31",
+      "# changes": "0"
+    },
+    {
+      "Project": "OpenClaw",
+      "Created": "2026-02-28",
+      "Orig. start": "—",
+      "Curr. start": "—",
+      "Orig. target": "2026-04-30",
+      "Curr. target": "2026-04-30",
+      "# changes": "0"
+    },
+    {
+      "Project": "Evals",
+      "Created": "2026-02-11",
+      "Orig. start": "2026-02-11",
+      "Curr. start": "2026-02-11",
+      "Orig. target": "2026-04-30",
+      "Curr. target": "2026-04-30",
+      "# changes": "0"
+    },
+    {
+      "Project": "Inbox Improvements",
+      "Created": "2025-12-10",
+      "Orig. start": "2026-01-01",
+      "Curr. start": "2026-01-01",
+      "Orig. target": "2026-04-30",
+      "Curr. target": "2026-04-30",
+      "# changes": "0"
+    },
+    {
+      "Project": "SEO Competitor analysis",
+      "Created": "2025-12-09",
+      "Orig. start": "2026-01-01",
+      "Curr. start": "2026-01-01",
+      "Orig. target": "2026-04-30",
+      "Curr. target": "2026-04-30",
+      "# changes": "0"
+    },
+    {
+      "Project": "Contract Review Platform",
+      "Created": "2025-09-01",
+      "Orig. start": "2026-04-01",
+      "Curr. start": "2026-04-01",
+      "Orig. target": "2026-06-30",
+      "Curr. target": "2026-06-30",
+      "# changes": "0"
+    },
+    {
+      "Project": "Engagement Score Trackin",
+      "Created": "2025-08-01",
+      "Orig. start": "2026-01-01",
+      "Curr. start": "2026-01-01",
+      "Orig. target": "2026-06-30",
+      "Curr. target": "2026-06-30",
+      "# changes": "0"
+    },
+    {
+      "Project": "Candidate Experience and",
+      "Created": "2025-07-22",
+      "Orig. start": "2026-04-01",
+      "Curr. start": "2026-04-01",
+      "Orig. target": "2026-06-30",
+      "Curr. target": "2026-06-30",
+      "# changes": "0"
+    },
+    {
+      "Project": "Follow ups on candidate ",
+      "Created": "2025-05-06",
+      "Orig. start": "2026-01-01",
+      "Curr. start": "2026-01-01",
+      "Orig. target": "2026-06-30",
+      "Curr. target": "2026-06-30",
+      "# changes": "0"
+    },
+    {
+      "Project": "Widgets to capture traff",
+      "Created": "2025-05-06",
+      "Orig. start": "2026-01-01",
+      "Curr. start": "2026-01-01",
+      "Orig. target": "2026-05-31",
+      "Curr. target": "2026-05-31",
+      "# changes": "0"
+    }
+  ],
+  "activityLog": [
+    {
+      "projectName": "Landing: AFX",
+      "entries": [
+        {
+          "Date": "2026-02-28",
+          "Type": "Status update",
+          "Detail": "On track · roger@mora.health · Sesión de alineación con Esme y Majo sob…"
+        },
+        {
+          "Date": "2026-02-28",
+          "Type": "Status update",
+          "Detail": "On track · roger@mora.health · ![image.png](https://uploads.linear.app/…"
+        },
+        {
+          "Date": "2026-03-02",
+          "Type": "Status update",
+          "Detail": "On track · Francisco · Revisar contenido con Mayei Mar 3rd  Cóm…"
+        }
+      ]
+    },
+    {
+      "projectName": "Landing: Referidos",
+      "entries": [
+        {
+          "Date": "2026-02-28",
+          "Type": "Status update",
+          "Detail": "On track · roger@mora.health · Sesión de alineación con Esme y Majo sob…"
+        },
+        {
+          "Date": "2026-02-28",
+          "Type": "Status update",
+          "Detail": "On track · roger@mora.health · ![image.png](https://uploads.linear.app/…"
+        }
+      ]
+    },
+    {
+      "projectName": "WA Agent v3: Map real use cases and persist sessions",
+      "entries": []
+    },
+    {
+      "projectName": "1st massive campaign: 9k nurses",
+      "entries": [
+        {
+          "Date": "2026-02-11",
+          "Type": "Status update",
+          "Detail": "On track · Francisco · La calidad del TEMPLATE es de:  * 73% de…"
+        },
+        {
+          "Date": "2026-02-28",
+          "Type": "Status update",
+          "Detail": "On track · Francisco · We launched 4 batches, with over 500 can…"
+        }
+      ]
+    },
+    {
+      "projectName": "Screening App v1 (Design Partner Program)",
+      "entries": [
+        {
+          "Date": "2026-02-09",
+          "Type": "Status update",
+          "Detail": "On track · Francisco · * La semana pasada le escribimos a Mario…"
+        },
+        {
+          "Date": "2026-02-28",
+          "Type": "Status update",
+          "Detail": "On track · Francisco · Trabajando para activar Apply URL de Ind…"
+        }
+      ]
+    },
+    {
+      "projectName": "IT Tasks",
+      "entries": []
+    },
+    {
+      "projectName": "Lead Magnet: Resume Builder",
+      "entries": []
+    },
+    {
+      "projectName": "Data Enrichment: OCR and extraction for Résumés (PDF and DOCX)",
+      "entries": []
+    },
+    {
+      "projectName": "Automate OCC Outbound",
+      "entries": []
+    },
+    {
+      "projectName": "Lead magnet: Readiness Quiz",
+      "entries": [
+        {
+          "Date": "2026-02-28",
+          "Type": "Status update",
+          "Detail": "On track · Francisco · Necesitamos feedback del Team de Supply"
+        },
+        {
+          "Date": "2026-03-02",
+          "Type": "Status update",
+          "Detail": "On track · Francisco · Diego va a ser el owner de esta iniciati…"
+        }
+      ]
+    },
+    {
+      "projectName": "Automate OCC Inbound",
+      "entries": []
+    },
+    {
+      "projectName": "Knowledge Base",
+      "entries": []
+    },
+    {
+      "projectName": "Candidate Tracker v1",
+      "entries": []
+    },
+    {
+      "projectName": "Job Aggregator",
+      "entries": []
+    },
+    {
+      "projectName": "Dashboards v1",
+      "entries": []
+    },
+    {
+      "projectName": "Blog content",
+      "entries": []
+    },
+    {
+      "projectName": "OpenClaw",
+      "entries": []
+    },
+    {
+      "projectName": "Evals",
+      "entries": []
+    },
+    {
+      "projectName": "Inbox Improvements",
+      "entries": []
+    },
+    {
+      "projectName": "SEO Competitor analysis",
+      "entries": []
+    },
+    {
+      "projectName": "Contract Review Platform",
+      "entries": []
+    },
+    {
+      "projectName": "Engagement Score Tracking",
+      "entries": []
+    },
+    {
+      "projectName": "Candidate Experience and follow-ups",
+      "entries": []
+    },
+    {
+      "projectName": "Follow ups on candidate engagement",
+      "entries": []
+    },
+    {
+      "projectName": "Widgets to capture traffic from the Website",
+      "entries": []
+    }
+  ],
+  "projectUpdates": [
+    {
+      "ProjectId": "ad4f1548-3eea-4388-a22a-a6ea422dc670",
+      "Project": "Landing: AFX",
+      "updates": [
+        {
+          "Date": "2026-03-02",
+          "Author": "Francisco Caballero",
+          "Summary": "Revisar contenido con Mayei Mar 3rd Cómo vamos a lanzar esta landing page @francisco.garcia"
+        },
+        {
+          "Date": "2026-02-28",
+          "Author": "roger@mora.health",
+          "Summary": "![image.png](https://uploads.linear.app/5624debf-b647-417e-b6fa-364ea9f5c181/6c1f751a-24d0-4d5c-908a-ed977a7b54c5/dc2ea477-b5dd-4c2f-b990-21ebb2a1944d)"
+        },
+        {
+          "Date": "2026-02-28",
+          "Author": "roger@mora.health",
+          "Summary": "Sesión de alineación con Esme y Majo sobre los requerimientos técnicos y de información para el proyecto. Será necesario integrar con un google sheets que permita la consulta y gestión de los candidatos que se postulan."
+        }
+      ]
+    },
+    {
+      "ProjectId": "4cdc1c5e-9e9a-4b1d-a876-3c72aed328a3",
+      "Project": "Landing: Referidos",
+      "updates": [
+        {
+          "Date": "2026-02-28",
+          "Author": "roger@mora.health",
+          "Summary": "![image.png](https://uploads.linear.app/5624debf-b647-417e-b6fa-364ea9f5c181/28448153-375d-4c10-9221-589829e255b8/e9fc62af-9288-4a29-b638-cfd162ab3c81)"
+        },
+        {
+          "Date": "2026-02-28",
+          "Author": "roger@mora.health",
+          "Summary": "Sesión de alineación con Esme y Majo sobre los requerimientos técnicos y de información para el proyecto. Será necesario integrar con un google sheets que permita la consulta y gestión de los referidos."
+        }
+      ]
+    },
+    {
+      "ProjectId": "cb2411b9-dfb1-4d23-949d-d116d23e529f",
+      "Project": "1st massive campaign: 9k nur",
+      "updates": [
+        {
+          "Date": "2026-02-28",
+          "Author": "Francisco Caballero",
+          "Summary": "We launched 4 batches, with over 500 candidates. We need to improve the analytics."
+        },
+        {
+          "Date": "2026-02-11",
+          "Author": "Francisco Caballero",
+          "Summary": "La calidad del TEMPLATE es de: * 73% de \"Read Rate.\" ![image.png](https://uploads.linear.app/5624debf-b647-417e-b6fa-364ea9f5c181/7f6bbf74-543d-49d8-8441-589528df08c7/c73fa6f3-1681-4069-a9d3-8205aeebbdf4) Ref: [https://business.facebook.com/latest/whatsapp_manager/template_details?business_id=564215209455817&tab=template-details&childRoute=CAPI&id=1555437852339535&nav_ref=whatsapp_manager&asset_id=1581056729569562](<https://business.facebook.com/latest/whatsapp_manager/template_details?business_id=564215209455817&tab=template-details&childRoute=CAPI&id=1555437852339535&nav_ref=whatsapp_manager&asset_id=1581056729569562>)"
+        }
+      ]
+    },
+    {
+      "ProjectId": "04e985f8-9064-4df0-beeb-1d766407d2a6",
+      "Project": "Screening App v1 (Design Par",
+      "updates": [
+        {
+          "Date": "2026-02-28",
+          "Author": "Francisco Caballero",
+          "Summary": "Trabajando para activar Apply URL de Indeed y hablando con OCC/Pandapé para hacer lo mismo"
+        },
+        {
+          "Date": "2026-02-09",
+          "Author": "Francisco Caballero",
+          "Summary": "* La semana pasada le escribimos a Mario para agendar una reunión en persona y hacer un onboarding * Tenemos que sacar una sesión con el OCC para confirmar que podemos subir un link * Necesitamos la vacante que ellos quieren probar * Agendar una reunión con Polar"
+        }
+      ]
+    },
+    {
+      "ProjectId": "7144f70b-ff6c-46f9-8aca-7bac54fb2e2a",
+      "Project": "Lead magnet: Readiness Quiz",
+      "updates": [
+        {
+          "Date": "2026-03-02",
+          "Author": "Francisco Caballero",
+          "Summary": "Diego va a ser el owner de esta iniciativa"
+        },
+        {
+          "Date": "2026-02-28",
+          "Author": "Francisco Caballero",
+          "Summary": "Necesitamos feedback del Team de Supply"
+        }
+      ]
+    }
+  ]
+}

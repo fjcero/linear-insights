@@ -1,0 +1,29 @@
+{
+  "name": "@linear-insights/cli",
+  "version": "0.0.1",
+  "type": "module",
+  "bin": {
+    "linear-insights": "src/cli.ts"
+  },
+  "scripts": {
+    "start": "bun run src/cli.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@linear-insights/linear-client": "workspace:*",
+    "@linear-insights/report-data": "workspace:*",
+    "@linear-insights/report-build": "workspace:*",
+    "@linear-insights/report-types": "workspace:*",
+    "@pppp606/ink-chart": "^0.2.4",
+    "chalk": "^5.3.0",
+    "ink": "^5.0.1",
+    "inquirer": "^9.2.23",
+    "react": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/inquirer": "^9.0.7",
+    "@types/react": "^18.3.12",
+    "typescript": "^5.7.2"
+  }
+}

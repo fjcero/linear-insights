@@ -1,4 +1,4 @@
-import { getLinearClient } from "./client.js";
+import type { LinearClient } from "@linear/sdk";
 import type {
   ProjectSummary,
   ProjectHistoryEvent,
@@ -7,10 +7,6 @@ import type {
   ProjectDateTimeline,
 } from "./types.js";
 
-/**
- * Parse a single ProjectHistory.entries blob into structured field changes.
- * The `entries` shape is untyped (JSONObject); we handle common patterns defensively.
- */
 function parseEntries(entries: unknown): ProjectFieldChange[] {
   if (entries == null || typeof entries !== "object") return [];
 
@@ -47,8 +43,7 @@ function parseEntries(entries: unknown): ProjectFieldChange[] {
 }
 
 /** Fetch all ProjectHistory entries for a given project ID. */
-export async function fetchProjectHistory(projectId: string): Promise<ProjectHistoryEvent[]> {
-  const client = getLinearClient();
+export async function fetchProjectHistory(client: LinearClient, projectId: string): Promise<ProjectHistoryEvent[]> {
   const project = await client.project(projectId);
   let connection = await project.history({ first: 50 });
   const events: ProjectHistoryEvent[] = [];
@@ -85,8 +80,7 @@ export async function fetchProjectHistory(projectId: string): Promise<ProjectHis
 }
 
 /** Fetch human-written ProjectUpdate entries (status updates with health). */
-export async function fetchProjectUpdates(projectId: string): Promise<ProjectStatusUpdate[]> {
-  const client = getLinearClient();
+export async function fetchProjectUpdates(client: LinearClient, projectId: string): Promise<ProjectStatusUpdate[]> {
   const project = await client.project(projectId);
   let connection = await project.projectUpdates({ first: 50 });
   const updates: ProjectStatusUpdate[] = [];
@@ -123,8 +117,7 @@ export async function fetchProjectUpdates(projectId: string): Promise<ProjectSta
 }
 
 /**
- * Build a full date-change timeline for a project.
- * Walks history in chronological order to determine original vs. current dates.
+ * Build a full date-change timeline for a project (pure function, no client needed).
  */
 export function buildProjectDateTimeline(
   project: ProjectSummary,
@@ -178,17 +171,17 @@ export function buildProjectDateTimeline(
 
 /**
  * Fetch history + status updates for multiple projects and build timelines.
- * Only includes projects that have date data or date changes.
  */
 export async function fetchProjectDateTimelines(
+  client: LinearClient,
   projects: ProjectSummary[],
 ): Promise<ProjectDateTimeline[]> {
   const timelines: ProjectDateTimeline[] = [];
 
   for (const project of projects) {
     const [history, updates] = await Promise.all([
-      fetchProjectHistory(project.id),
-      fetchProjectUpdates(project.id),
+      fetchProjectHistory(client, project.id),
+      fetchProjectUpdates(client, project.id),
     ]);
     const timeline = buildProjectDateTimeline(project, history, updates);
     timelines.push(timeline);

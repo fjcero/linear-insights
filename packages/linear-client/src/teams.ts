@@ -1,4 +1,4 @@
-import { getLinearClient } from "./client.js";
+import type { LinearClient } from "@linear/sdk";
 import type { Team } from "@linear/sdk";
 
 export interface TeamInfo {
@@ -12,11 +12,10 @@ function toTeamInfo(t: Team): TeamInfo {
 }
 
 /**
- * List all teams the API key can access (no cache; use report-data layer for SQLite cache).
+ * List all teams the token can access (no cache; use report-data layer for SQLite cache).
  * @throws if the API returns an error (e.g. invalid key, no access)
  */
-export async function listTeams(): Promise<TeamInfo[]> {
-  const client = getLinearClient();
+export async function listTeams(client: LinearClient): Promise<TeamInfo[]> {
   const connection = await client.teams();
   const nodes = connection?.nodes ?? [];
   const teams: TeamInfo[] = nodes.map((t: Team) => toTeamInfo(t));

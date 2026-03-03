@@ -1,5 +1,6 @@
 import chalk from "chalk";
 import {
+  createLinearClient,
   listTeams,
   listProjects,
   listIssuesByProject,
@@ -12,7 +13,7 @@ import {
 import {
   openCache,
   closeCache,
-  getScope,
+  cacheScopeFromApiKey,
   getTeamsCached,
   getProjectsCached,
   getIssuesCached,
@@ -72,15 +73,17 @@ function stepDone(suffix?: string): void {
 }
 
 export async function runInsightsCommand(options?: { forceRefresh?: boolean }): Promise<void> {
+  const apiKey = process.env.LINEAR_API_KEY ?? "";
   const teamIds = process.env.LINEAR_TEAM_IDS?.split(",").map((s) => s.trim()).filter(Boolean);
 
+  const client = createLinearClient(apiKey);
   const cache = await openCache({ forceRefresh: options?.forceRefresh });
-  const scope = getScope();
+  const scope = cacheScopeFromApiKey(apiKey);
 
   try {
     step("Fetching teams…");
     const teams = await withTimeout(
-      getTeamsCached(cache, scope, () => listTeams()),
+      getTeamsCached(cache, scope, () => listTeams(client)),
       REQUEST_TIMEOUT_MS,
       "Fetching teams"
     );
@@ -96,7 +99,7 @@ export async function runInsightsCommand(options?: { forceRefresh?: boolean }): 
     step("Fetching projects…");
     const allProjectsForLifecycle = await withTimeout(
       getProjectsCached(cache, scope, teamIds ?? undefined, () =>
-        listProjects(teamIds?.length ? { teamIds } : {})
+        listProjects(client, teamIds?.length ? { teamIds } : {})
       ),
       REQUEST_TIMEOUT_MS,
       "Fetching projects"
@@ -116,7 +119,7 @@ export async function runInsightsCommand(options?: { forceRefresh?: boolean }): 
     const issuesByProject = await withTimeout(
       getIssuesCached(cache, scope, projectIds, (opts) =>
         withTimeout(
-          listIssuesByProject(opts),
+          listIssuesByProject(client, opts),
           REQUEST_TIMEOUT_MS,
           `Fetching issues for project ${opts.projectId}`
         )
@@ -133,8 +136,8 @@ export async function runInsightsCommand(options?: { forceRefresh?: boolean }): 
           ?? projects.find((p) => p.id === pid)
           ?? { id: pid, name: pid, state: "", teamIds: [] };
         const [history, updates] = await Promise.all([
-          fetchProjectHistory(pid),
-          fetchProjectUpdates(pid),
+          fetchProjectHistory(client, pid),
+          fetchProjectUpdates(client, pid),
         ]);
         return buildProjectDateTimeline(proj, history, updates);
       }),

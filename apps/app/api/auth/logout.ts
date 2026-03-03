@@ -1,5 +1,7 @@
 import { handleLogout } from "../../server/auth.js";
 
-export async function POST(request: Request): Promise<Response> {
-  return handleLogout(request);
-}
+export default {
+  async fetch(request: Request): Promise<Response> {
+    return request.method === "POST" ? handleLogout(request) : new Response("Method not allowed", { status: 405 });
+  },
+};

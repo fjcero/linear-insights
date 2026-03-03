@@ -1,5 +1,7 @@
 import { handleReportRequest } from "../server/report-handler.js";
 
-export async function GET(request: Request): Promise<Response> {
-  return handleReportRequest(request);
-}
+export default {
+  async fetch(request: Request): Promise<Response> {
+    return request.method === "GET" ? handleReportRequest(request) : new Response("Method not allowed", { status: 405 });
+  },
+};

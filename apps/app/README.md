@@ -18,9 +18,10 @@ bun run app:dev
 
 This command starts the report API and the app together.
 
-- Report API serves `GET /report` and `GET /report.json`
-- On startup it refreshes data from Linear (force refresh by default)
-- App loads report automatically (no file picker needed in normal flow)
+- Report API starts immediately and returns `503` while the cache sync is in progress
+- Once the sync completes the API serves `GET /report` and `GET /report.json`
+- The app polls `/report` until it gets a `200` (up to ~60 s); no manual refresh needed for most syncs
+- Sync is a force-refresh by default (`LINEAR_INSIGHTS_SYNC_ON_START=1`)
 
 Open the URL shown by Vite (usually http://localhost:5173).
 

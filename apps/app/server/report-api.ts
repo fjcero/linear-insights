@@ -142,13 +142,14 @@ async function handleReport(url: URL): Promise<Response> {
   return json(report);
 }
 
-await ensureCacheReady();
+let cacheReady = false;
 
 const server = Bun.serve({
   port: PORT,
   async fetch(req) {
     const url = new URL(req.url);
     if (req.method === "GET" && (url.pathname === "/report" || url.pathname === "/report.json")) {
+      if (!cacheReady) return json({ error: "Cache sync in progress — please wait and retry." }, 503);
       return handleReport(url);
     }
     if (req.method === "OPTIONS") {
@@ -166,3 +167,6 @@ const server = Bun.serve({
 });
 
 console.log(`Report API: http://localhost:${server.port}/report`);
+
+await ensureCacheReady();
+cacheReady = true;

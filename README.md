@@ -1,5 +1,7 @@
 # Linear Insights
 
+![Preview](preview.jpg)
+
 Internal tool that reads from the Linear API and surfaces insights for Product, Ops, and Leadership.
 
 ## Phase 0: CLI
@@ -64,3 +66,22 @@ From repo root: `bun run app:dev`. This starts the report API (syncs cache if ne
 ## Later: TanStack Start app
 
 After the CLI phase, the web app will depend on `@linear-insights/linear-client` and expose Product, Ops, and Roadmap views.
+
+## Known issues / technical debt
+
+### Critical
+
+- **`listIssuesByProject` only returns the last page** (`packages/linear-client/src/issues.ts`): the pagination loop overwrites `connection` on each page and then returns only the final page's nodes. Projects with more than 50 issues silently drop all but the last 50, corrupting completion %, stale counts, and velocity. The correct pattern (accumulate into an array) is already used in `teams.ts` and `projects.ts`.
+
+### Medium
+
+- **`computeProjectHealth` dead branch** (`packages/linear-client/src/health.ts`): both the `else if` and the `else` return `"at_risk"`, so `"off_track"` is never assigned through the main path. Projects severely behind schedule are indistinguishable from mildly at-risk ones.
+- **Outer issue-fetch timeout is a no-op** (`apps/cli/src/commands/insights/insights.command.ts`): the outer timeout is `Math.max(REQUEST_TIMEOUT_MS, projectIds.length * 2)`. For any realistic project count the `Math.max` always returns `REQUEST_TIMEOUT_MS`, providing no extra buffer. Should be `projectIds.length * REQUEST_TIMEOUT_MS`.
+- **No tests**: the pure computation functions in `packages/linear-client` (`computeProjectMetrics`, `computeProjectHealth`, `computeVelocity`, `getStaleIssues`) and `packages/report-build` (`buildInsightsReport`) take plain data and return plain data — ideal candidates for unit tests.
+
+### Low
+
+- **Duplicate type definitions**: `ProjectsPerMonth`, `VelocityTrend`, and `VelocitySummary` are defined independently in both `packages/linear-client/src/types.ts` and `packages/report-types/src/index.ts`. One should import from the other.
+- **Unused dependencies**: `inquirer` and `@pppp606/ink-chart` are listed in `apps/cli/package.json` but not used.
+- **Inconsistent name truncation**: in `packages/report-build/src/index.ts`, project names are sliced to four different lengths (20, 22, 24, 28) across report sections, so the same project appears under a different truncated name in each CLI table.
+- **`packages/data-sync`** is a one-line deprecated re-export shim; safe to remove once confirmed no external callers remain.

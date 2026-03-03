@@ -52,7 +52,7 @@ export default function App() {
 
   useEffect(() => {
     const RETRY_DELAY_MS = 1500;
-    const MAX_RETRIES = 5;
+    const MAX_RETRIES = 40; // sync can take >1 min for large workspaces
 
     type LoadResult = { data: InsightsReportData; source: "api" | "file" } | null;
     async function loadReport(): Promise<LoadResult> {

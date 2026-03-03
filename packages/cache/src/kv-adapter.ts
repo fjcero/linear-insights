@@ -4,8 +4,8 @@
  *
  * Requires KV_REST_API_URL and KV_REST_API_TOKEN env vars (set by Vercel when KV is linked).
  */
-import type { CacheAdapter, CacheEntry } from "./adapter.js";
-import type { CacheKind } from "./schema.js";
+import type { CacheAdapter, CacheEntry } from "./adapter.ts";
+import type { CacheKind } from "./schema.ts";
 
 const KEY_PREFIX = "li:";
 
@@ -32,7 +32,10 @@ interface KVClient {
 }
 
 export class VercelKVAdapter implements CacheAdapter {
-  constructor(private readonly kv: KVClient) {}
+  private readonly kv: KVClient;
+  constructor(kv: KVClient) {
+    this.kv = kv;
+  }
 
   async get(scope: string, kind: CacheKind, key: string): Promise<CacheEntry | null> {
     const stored = (await this.kv.get<StoredValue>(kvKey(scope, kind, key))) ?? null;

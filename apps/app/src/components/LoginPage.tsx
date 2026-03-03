@@ -1,42 +1,42 @@
 interface LoginPageProps {
-  error?: string | null;
+  error?: string | null
 }
 
 export function LoginPage({ error }: LoginPageProps) {
   return (
     <div
       style={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "2rem",
-        background: "linear-gradient(180deg, #0f172a 0%, #1e293b 100%)",
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '2rem',
+        background: 'linear-gradient(180deg, #0f172a 0%, #1e293b 100%)',
       }}
     >
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "1.5rem",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '1.5rem',
           maxWidth: 400,
-          width: "100%",
+          width: '100%',
         }}
       >
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: 'center' }}>
           <h1
             style={{
-              fontSize: "1.75rem",
+              fontSize: '1.75rem',
               fontWeight: 700,
-              color: "#38bdf8",
-              marginBottom: "0.5rem",
+              color: '#38bdf8',
+              marginBottom: '0.5rem',
             }}
           >
             Linear Insights
           </h1>
-          <p style={{ color: "#94a3b8", fontSize: "0.95rem" }}>
+          <p style={{ color: '#94a3b8', fontSize: '0.95rem' }}>
             Sign in with your Linear account to view your team's project health, velocity, and cycle-time metrics.
           </p>
         </div>
@@ -44,24 +44,24 @@ export function LoginPage({ error }: LoginPageProps) {
         <a
           href="/auth/login"
           style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.625rem",
-            padding: "0.75rem 1.5rem",
-            background: "#5e6ad2",
-            color: "white",
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.625rem',
+            padding: '0.75rem 1.5rem',
+            background: '#5e6ad2',
+            color: 'white',
             borderRadius: 8,
             fontWeight: 600,
-            fontSize: "0.95rem",
-            textDecoration: "none",
-            transition: "background 0.15s",
-            boxShadow: "0 2px 8px rgba(94,106,210,0.35)",
+            fontSize: '0.95rem',
+            textDecoration: 'none',
+            transition: 'background 0.15s',
+            boxShadow: '0 2px 8px rgba(94,106,210,0.35)',
           }}
           onMouseEnter={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.background = "#4f5bbf";
+            ;(e.currentTarget as HTMLAnchorElement).style.background = '#4f5bbf'
           }}
           onMouseLeave={(e) => {
-            (e.currentTarget as HTMLAnchorElement).style.background = "#5e6ad2";
+            ;(e.currentTarget as HTMLAnchorElement).style.background = '#5e6ad2'
           }}
         >
           <LinearLogo />
@@ -71,11 +71,11 @@ export function LoginPage({ error }: LoginPageProps) {
         {error && (
           <p
             style={{
-              color: "#f87171",
-              fontSize: "0.875rem",
-              textAlign: "center",
-              background: "rgba(248,113,113,0.1)",
-              padding: "0.5rem 1rem",
+              color: '#f87171',
+              fontSize: '0.875rem',
+              textAlign: 'center',
+              background: 'rgba(248,113,113,0.1)',
+              padding: '0.5rem 1rem',
               borderRadius: 6,
             }}
           >
@@ -84,7 +84,7 @@ export function LoginPage({ error }: LoginPageProps) {
         )}
       </div>
     </div>
-  );
+  )
 }
 
 function LinearLogo() {
@@ -110,5 +110,5 @@ function LinearLogo() {
         fill="white"
       />
     </svg>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import type { CacheKind } from "./schema.js";
+import type { CacheKind } from "./schema.ts";
 
 export interface CacheEntry {
   data: string;

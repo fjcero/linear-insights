@@ -1,25 +1,22 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
+import { defineConfig } from 'vite'
+import { devtools } from '@tanstack/devtools-vite'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
-export default defineConfig({
-  plugins: [react()],
-  server: {
-    port: 5173,
-    proxy: {
-      "/report": {
-        target: "http://127.0.0.1:3001",
-        changeOrigin: true,
-        timeout: 300000, // 5 min — initial sync can be slow with many projects
-      },
-      "/report.json": {
-        target: "http://127.0.0.1:3001",
-        changeOrigin: true,
-        timeout: 300000,
-      },
-      "/auth": {
-        target: "http://127.0.0.1:3001",
-        changeOrigin: true,
-      },
-    },
-  },
-});
+import { tanstackStart } from '@tanstack/react-start/plugin/vite'
+
+import viteReact from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
+import { nitro } from 'nitro/vite'
+
+const config = defineConfig({
+  plugins: [
+    devtools(),
+    nitro({ rollupConfig: { external: [/^@sentry\//] } }),
+    tsconfigPaths({ projects: ['./tsconfig.json'] }),
+    tailwindcss(),
+    tanstackStart(),
+    viteReact(),
+  ],
+})
+
+export default config

@@ -1,20 +1,20 @@
 {
   "name": "linear-insights",
   "private": true,
-  "packageManager": "bun@1.2.2",
-  "engines": { "node": "20.x" },
+  "packageManager": "pnpm@9.14.2",
+  "engines": { "node": ">=20" },
   "workspaces": ["apps/*", "packages/*"],
   "devDependencies": {
-    "@types/bun": "latest",
+    "dotenv-cli": "^7.4.2",
     "turbo": "latest"
   },
   "scripts": {
-    "cli": "bun --env-file=.env.local --filter @linear-insights/cli start",
-    "insights": "bun --env-file=.env.local --filter @linear-insights/cli start -- insights",
-    "sync": "bun --env-file=.env.local --filter @linear-insights/cli start -- sync",
-    "app:dev": "bun --env-file=.env.local run apps/app/server/start-with-api.ts",
-    "app:dev:with-report": "LINEAR_INSIGHTS_JSON_OUTPUT=$PWD/apps/app/public/report.json bun --env-file=.env.local --filter @linear-insights/cli start -- insights && bun --env-file=.env.local --filter @linear-insights/app dev",
-    "build": "turbo run build build:api",
+    "cli": "dotenv -e .env.local -- pnpm exec turbo run start --filter=@linear-insights/cli",
+    "insights": "dotenv -e .env.local -- pnpm exec turbo run start --filter=@linear-insights/cli -- insights",
+    "sync": "dotenv -e .env.local -- pnpm exec turbo run start --filter=@linear-insights/cli -- sync",
+    "app:dev": "dotenv -e .env.local -- pnpm exec turbo run dev --filter=@linear-insights/app",
+    "app:dev:with-report": "LINEAR_INSIGHTS_JSON_OUTPUT=$PWD/apps/app/public/report.json dotenv -e .env.local -- pnpm exec turbo run start --filter=@linear-insights/cli -- insights && dotenv -e .env.local -- pnpm exec turbo run dev --filter=@linear-insights/app",
+    "build": "turbo run build",
     "app:build": "turbo run build --filter=@linear-insights/app",
     "app:preview": "turbo run preview --filter=@linear-insights/app"
   }

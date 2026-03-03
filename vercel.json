@@ -1,8 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "bun run build",
+  "buildCommand": "pnpm run build",
   "outputDirectory": "dist",
-  "installCommand": "bun install",
+  "installCommand": "pnpm install",
   "functions": {
     "api/**/*.ts": { "maxDuration": 60 },
     "api/**/*.js": { "maxDuration": 60 }

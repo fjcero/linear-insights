@@ -7,7 +7,7 @@ Internal tool that reads from the Linear API and surfaces insights for Product, 
 ## Phase 0: CLI
 
 - **Bun CLI** with a single `insights` command that prints a full report (teams, projects, metrics, health, velocity).
-- **Shared client** in `packages/linear-client` (Linear TypeScript SDK); reused later by the TanStack Start app.
+- **Shared client** in `packages/linear-client` (Linear TypeScript SDK); reused by the web app.
 
 ### Setup
 
@@ -17,9 +17,9 @@ Internal tool that reads from the Linear API and surfaces insights for Product, 
    cp .env.local.example .env.local
    # Edit .env.local: set LINEAR_API_KEY=lin_api_...
    ```
-3. Install (Bun):
+3. Install (use one):
    ```bash
-   bun install
+   bun install   # or: npm install   or: pnpm install
    ```
 4. Run:
    ```bash
@@ -118,9 +118,9 @@ From repo root: `bun run app:dev`. This starts the report API (syncs cache if ne
 - Each Linear API step has a **30s timeout**; you’ll see e.g. `Fetching teams timed out after 30s` if it doesn’t respond.
 - Check: **network** (can you reach `https://api.linear.app`?), **firewall/VPN**, and that **LINEAR_API_KEY** is valid (create one at Linear → Settings → API).
 
-## Later: TanStack Start app
+## Web app
 
-After the CLI phase, the web app will depend on `@linear-insights/linear-client` and expose Product, Ops, and Roadmap views.
+The web app uses **Vite + React**. It depends on `@linear-insights/linear-client` and exposes the project throughput dashboard.
 
 ## Known issues / technical debt
 

@@ -1,24 +1,24 @@
-import type { InsightsReportData } from "@linear-insights/report-types";
-import type { DateRange, TeamFilter } from "./App";
-import { buildChartDataFromReport } from "./lib/chartData";
-import { Section } from "./components/Section";
-import { StaleIssuesTable } from "./components/StaleIssuesTable";
-import { StatsStrip } from "./components/StatsStrip";
-import { ThroughputCharts } from "./components/ThroughputCharts";
-import { CompletedProjectsBlock } from "./components/CompletedProjectsBlock";
-import { ProjectGrid } from "./components/ProjectGrid";
-import { VelocitySection } from "./components/VelocitySection";
+import type { InsightsReportData } from '@linear-insights/report-types'
+import type { DateRange, TeamFilter } from '#/utils/types'
+import { buildChartDataFromReport } from '#/lib/chartData'
+import { Section } from '#/components/Section'
+import { StaleIssuesTable } from '#/components/StaleIssuesTable'
+import { StatsStrip } from '#/components/StatsStrip'
+import { ThroughputCharts } from '#/components/ThroughputCharts'
+import { CompletedProjectsBlock } from '#/components/CompletedProjectsBlock'
+import { ProjectGrid } from '#/components/ProjectGrid'
+import { VelocitySection } from '#/components/VelocitySection'
 
 interface DashboardProps {
-  report: InsightsReportData;
-  onReset: () => void;
-  dateRange: DateRange;
-  onDateRangeChange: (range: DateRange) => void;
-  selectedTeam: TeamFilter;
-  onTeamChange: (teamId: TeamFilter) => void;
-  loading?: boolean;
-  user?: { name: string; email: string } | null;
-  onLogout?: () => void;
+  report: InsightsReportData
+  onReset: () => void
+  dateRange: DateRange
+  onDateRangeChange: (range: DateRange) => void
+  selectedTeam: TeamFilter
+  onTeamChange: (teamId: TeamFilter) => void
+  loading?: boolean
+  user?: { name: string; email: string } | null
+  onLogout?: () => void
 }
 
 export function Dashboard({
@@ -39,45 +39,45 @@ export function Dashboard({
     lifecycle,
     staleIssues,
     velocity,
-  } = report;
+  } = report
 
-  const { moData, woData, stats } = buildChartDataFromReport(report);
-  const openProjects = unified.filter((r) => r.State !== "Completed");
-  const completedProjects = unified.filter((r) => r.State === "Completed");
+  const { moData, woData, stats } = buildChartDataFromReport(report)
+  const openProjects = unified.filter((r) => r.State !== 'Completed')
+  const completedProjects = unified.filter((r) => r.State === 'Completed')
   const updatesByProject = Object.fromEntries(
     (report.projectUpdates ?? []).flatMap((p) => [
       [p.ProjectId, p.updates] as const,
       [p.Project, p.updates] as const,
     ])
-  );
+  )
 
   return (
     <div
       style={{
-        background: "#050810",
-        minHeight: "100vh",
-        padding: "36px 28px 48px",
+        background: '#050810',
+        minHeight: '100vh',
+        padding: '36px 28px 48px',
         fontFamily: "'IBM Plex Mono', monospace",
-        color: "#e2e8f0",
+        color: '#e2e8f0',
       }}
     >
       <header
         style={{
-          display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "space-between",
+          display: 'flex',
+          alignItems: 'flex-start',
+          justifyContent: 'space-between',
           marginBottom: 30,
-          flexWrap: "wrap",
+          flexWrap: 'wrap',
           gap: 12,
         }}
       >
         <div>
           <div
             style={{
-              color: "#2d4baa",
-              fontSize: "0.625rem",
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
+              color: '#2d4baa',
+              fontSize: '0.625rem',
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
               marginBottom: 10,
             }}
           >
@@ -86,33 +86,31 @@ export function Dashboard({
           <h1
             style={{
               fontFamily: "'IBM Plex Sans', sans-serif",
-              fontSize: "1.75rem",
+              fontSize: '1.75rem',
               fontWeight: 700,
-              color: "#f1f5f9",
-              letterSpacing: "-0.03em",
-              margin: "0 0 4px",
+              color: '#f1f5f9',
+              letterSpacing: '-0.03em',
+              margin: '0 0 4px',
             }}
           >
             Project throughput dashboard
           </h1>
-          <div style={{ color: "#9fb0cd", fontSize: "0.6875rem" }}>
-            {unified.length} projects
-          </div>
+          <div style={{ color: '#9fb0cd', fontSize: '0.6875rem' }}>{unified.length} projects</div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-          <label style={{ color: "#9fb0cd", fontSize: "0.6875rem" }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+          <label style={{ color: '#9fb0cd', fontSize: '0.6875rem' }}>
             Team
             <select
               value={selectedTeam}
               onChange={(e) => onTeamChange(e.target.value)}
               style={{
                 marginLeft: 8,
-                background: "#0f172a",
-                border: "1px solid #1e293b",
-                color: "#e2e8f0",
-                padding: "6px 8px",
+                background: '#0f172a',
+                border: '1px solid #1e293b',
+                color: '#e2e8f0',
+                padding: '6px 8px',
                 borderRadius: 4,
-                fontFamily: "inherit",
+                fontFamily: 'inherit',
               }}
             >
               <option value="all">All teams</option>
@@ -127,29 +125,29 @@ export function Dashboard({
             type="button"
             onClick={onReset}
             style={{
-              background: "transparent",
-              border: "1px solid #1a2540",
-              color: "#3d4f70",
-              padding: "8px 16px",
+              background: 'transparent',
+              border: '1px solid #1a2540',
+              color: '#3d4f70',
+              padding: '8px 16px',
               borderRadius: 6,
-              cursor: "pointer",
+              cursor: 'pointer',
               fontFamily: "'IBM Plex Mono', monospace",
-              fontSize: "0.5625rem",
-              letterSpacing: "0.08em",
+              fontSize: '0.5625rem',
+              letterSpacing: '0.08em',
             }}
           >
             Load another report
           </button>
           {user && onLogout && (
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
               <span
                 style={{
-                  color: "#9fb0cd",
-                  fontSize: "0.6875rem",
+                  color: '#9fb0cd',
+                  fontSize: '0.6875rem',
                   maxWidth: 160,
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
                 }}
                 title={user.email}
               >
@@ -159,15 +157,15 @@ export function Dashboard({
                 type="button"
                 onClick={onLogout}
                 style={{
-                  background: "transparent",
-                  border: "1px solid #1a2540",
-                  color: "#3d4f70",
-                  padding: "6px 12px",
+                  background: 'transparent',
+                  border: '1px solid #1a2540',
+                  color: '#3d4f70',
+                  padding: '6px 12px',
                   borderRadius: 6,
-                  cursor: "pointer",
+                  cursor: 'pointer',
                   fontFamily: "'IBM Plex Mono', monospace",
-                  fontSize: "0.5625rem",
-                  letterSpacing: "0.08em",
+                  fontSize: '0.5625rem',
+                  letterSpacing: '0.08em',
                 }}
               >
                 Sign out
@@ -180,12 +178,12 @@ export function Dashboard({
       {showAllProjectsMessage && (
         <div
           style={{
-            padding: "0.75rem 1rem",
-            background: "#422006",
-            color: "#fcd34d",
+            padding: '0.75rem 1rem',
+            background: '#422006',
+            color: '#fcd34d',
             borderRadius: 8,
-            marginBottom: "1.5rem",
-            fontSize: "0.875rem",
+            marginBottom: '1.5rem',
+            fontSize: '0.875rem',
           }}
         >
           {showAllProjectsMessage}
@@ -228,12 +226,12 @@ export function Dashboard({
       />
 
       {staleIssues.length > 0 && (
-        <div style={{ marginTop: "1.5rem" }}>
+        <div style={{ marginTop: '1.5rem' }}>
           <Section title="Stale issues (created 6+ weeks ago, no update in 6+ weeks)">
             <StaleIssuesTable data={staleIssues} />
           </Section>
         </div>
       )}
     </div>
-  );
+  )
 }

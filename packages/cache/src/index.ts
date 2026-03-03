@@ -1,9 +1,9 @@
 import { join } from "node:path";
 import { homedir } from "node:os";
-import { CREATE_TABLE, CREATE_INDEX, type CacheKind } from "./schema.js";
-import type { CacheAdapter, CacheEntry } from "./adapter.js";
+import { CREATE_TABLE, CREATE_INDEX, type CacheKind } from "./schema.ts";
+import type { CacheAdapter, CacheEntry } from "./adapter.ts";
 
-export type { CacheAdapter, CacheEntry } from "./adapter.js";
+export type { CacheAdapter, CacheEntry } from "./adapter.ts";
 
 const CACHE_DISABLED_ENV = "LINEAR_INSIGHTS_CACHE";
 
@@ -30,13 +30,17 @@ function defaultDbPath(): string {
 // SQLite low-level helpers
 // ---------------------------------------------------------------------------
 
-type BunDb = {
+type SqliteDb = {
   getRow: (sql: string, ...params: (string | number)[]) => { data: string } | undefined;
   run: (sql: string, ...params: (string | number)[]) => void;
   close: () => void;
 };
 
-async function createBunDb(path: string): Promise<BunDb> {
+function isBun(): boolean {
+  return typeof (globalThis as unknown as { Bun?: unknown }).Bun !== "undefined";
+}
+
+async function createBunDb(path: string): Promise<SqliteDb> {
   const { Database } = await import("bun:sqlite");
   const database = new Database(path, { create: true });
   database.run("PRAGMA journal_mode = WAL;");
@@ -55,6 +59,50 @@ async function createBunDb(path: string): Promise<BunDb> {
   };
 }
 
+async function createNodeDb(path: string): Promise<SqliteDb> {
+  const initSqlJs = (await import("sql.js")).default;
+  const SQL = await initSqlJs();
+  const { readFile, writeFile } = await import("node:fs/promises");
+  const { existsSync } = await import("node:fs");
+  let buffer: Uint8Array | undefined;
+  if (existsSync(path)) {
+    buffer = new Uint8Array(await readFile(path));
+  }
+  const database = new SQL.Database(buffer);
+  database.run(CREATE_TABLE);
+  database.run(CREATE_INDEX);
+
+  let saveTimer: ReturnType<typeof setTimeout> | null = null;
+  const scheduleSave = () => {
+    if (saveTimer) return;
+    saveTimer = setTimeout(() => {
+      saveTimer = null;
+      const data = database.export();
+      writeFile(path, Buffer.from(data)).catch(() => {});
+    }, 500);
+  };
+
+  return {
+    getRow(sql: string, ...params: (string | number)[]) {
+      const stmt = database.prepare(sql);
+      stmt.bind(params);
+      const row = stmt.step() ? (stmt.getAsObject() as { data: string }) : undefined;
+      stmt.free();
+      return row;
+    },
+    run(sql: string, ...params: (string | number)[]) {
+      database.run(sql, params);
+      scheduleSave();
+    },
+    close() {
+      if (saveTimer) clearTimeout(saveTimer);
+      const data = database.export();
+      database.close();
+      writeFile(path, Buffer.from(data)).catch(() => {});
+    },
+  };
+}
+
 // ---------------------------------------------------------------------------
 // SQLiteCacheAdapter — the default CacheAdapter backed by Bun's built-in SQLite
 // ---------------------------------------------------------------------------
@@ -68,11 +116,13 @@ const DEL_SCOPE_SQL = "DELETE FROM report_cache WHERE scope = ?";
 const DEL_EXPIRED_SQL = "DELETE FROM report_cache WHERE expires_at <= ?";
 
 /**
- * CacheAdapter implementation backed by SQLite (Bun's built-in driver).
- * Requires the Bun runtime.
+ * CacheAdapter implementation backed by SQLite (Bun or Node).
  */
 export class SQLiteCacheAdapter implements CacheAdapter {
-  constructor(private readonly db: BunDb) {}
+  private readonly db: SqliteDb;
+  constructor(db: SqliteDb) {
+    this.db = db;
+  }
 
   async get(scope: string, kind: CacheKind, key: string): Promise<CacheEntry | null> {
     const row = this.db.getRow(SEL_SQL, scope, kind, key, Date.now());
@@ -135,7 +185,7 @@ export async function openReportCache(options: ReportCacheOptions = {}): Promise
 
   if (useVercelKV()) {
     const { createClient } = await import("@vercel/kv");
-    const { VercelKVAdapter } = await import("./kv-adapter.js");
+    const { VercelKVAdapter } = await import("./kv-adapter.ts");
     const url = getKvUrl();
     const token = getKvToken();
     if (!url || !token) {
@@ -154,7 +204,9 @@ export async function openReportCache(options: ReportCacheOptions = {}): Promise
     const { mkdir } = await import("node:fs/promises");
     const { dirname } = await import("node:path");
     await mkdir(dirname(path), { recursive: true });
-    adapter = new SQLiteCacheAdapter(await createBunDb(path));
+    adapter = new SQLiteCacheAdapter(
+      isBun() ? await createBunDb(path) : await createNodeDb(path)
+    );
   }
 
   return new ReportCache(adapter, isCacheDisabled(), refresh);
@@ -181,11 +233,14 @@ export function closeReportCache(): void {
  * changing any call sites.
  */
 export class ReportCache {
-  constructor(
-    private readonly adapter: CacheAdapter,
-    private readonly disabled: boolean,
-    private readonly forceRefresh: boolean = false,
-  ) {}
+  private readonly adapter: CacheAdapter;
+  private readonly disabled: boolean;
+  private readonly forceRefresh: boolean;
+  constructor(adapter: CacheAdapter, disabled: boolean, forceRefresh = false) {
+    this.adapter = adapter;
+    this.disabled = disabled;
+    this.forceRefresh = forceRefresh;
+  }
 
   private async fetch(scope: string, kind: CacheKind, key: string): Promise<string | null> {
     if (this.disabled || this.forceRefresh) return null;

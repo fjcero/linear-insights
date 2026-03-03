@@ -3,6 +3,9 @@
   "private": true,
   "engines": { "node": "20.x" },
   "workspaces": ["apps/*", "packages/*"],
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
   "scripts": {
     "cli": "bun --env-file=.env.local --filter @linear-insights/cli start",
     "insights": "bun --env-file=.env.local --filter @linear-insights/cli start -- insights",

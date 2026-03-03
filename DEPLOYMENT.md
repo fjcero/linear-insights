@@ -4,6 +4,8 @@
 
 **Root Directory:** Leave empty or set to `.` (repo root). **Do not** set to `apps/app` — the full monorepo is required so workspace packages (`@linear-insights/*`) resolve correctly.
 
+The build bundles `api/report.ts` into `api/report.js` because the workspace packages export raw TypeScript; Node on Vercel cannot execute `.ts` files at runtime.
+
 ## Environment variables
 
 Set these in Vercel → Project Settings → Environment Variables:

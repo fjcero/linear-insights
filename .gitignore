@@ -12,3 +12,6 @@ linear-insights-velocity.html
 *.db
 *.sqlite
 *.sqlite3
+
+# Bundled API (created during Vercel build)
+api/report.js
